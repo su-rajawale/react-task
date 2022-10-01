@@ -9,8 +9,8 @@ function UserDropdown() {
     <div id='userdropdown'>
             <img src={userAvatar} alt='user avatar'></img>
             <h4 className='user-name'>Nathan Summers</h4>
-            <p>Email Id: Nathan@yesenia.net</p>
-            <p>CatchPhrase: Face to face bifurcated interface</p>
+            <p>Nathan@yesenia.net</p>
+            <p>Face to face bifurcated interface</p>
             <Button variant='contained' color='error' size='small'><Link to='/'>Logout</Link></Button>
     </div>
   )

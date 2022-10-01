@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios'
 import 'react-toastify/dist/ReactToastify.css';
 import './Forms.css'
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik'
-import { signUpSchema } from './schemas'
+import { signUpSchema, loginSchema } from './schemas'
 
-const initialValues = {
+const registerInitialValues = {
     name: '',
     email: '',
     password: '',
     confirm_password: ''
+}
+
+const loginInitialValues = {
+    email: '',
+    password: '',
 }
 
 function Forms() {
@@ -22,12 +26,9 @@ function Forms() {
 
     // States
 
-    const [userRegistration, setUserRegistration] = useState({
-        email: '',
-        password: ''
-    })
-
     const [isSuccessOpen, setIsSuccessOpen] = useState(false)
+    const [isLoginOk, setIsLoginOk] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleLoginClick = () => {
         setIsSuccessOpen(false)
@@ -35,6 +36,10 @@ function Forms() {
         if (image.classList.contains('change')) {
             image.classList.remove('change')
         }
+    }
+
+    const skipLogin = () => {
+        navigateTo('/home/users')
     }
 
     // Sliding image
@@ -51,8 +56,8 @@ function Forms() {
 
     // Formik Handle Form *Registration
 
-    const { values, errors, touched, handleBlur, handleSubmit, handleChange } = useFormik({
-        initialValues: initialValues,
+    const registerForm = useFormik({
+        initialValues: registerInitialValues,
         validationSchema: signUpSchema,
         onSubmit: (values, action) => {
             axios.post('http://localhost:5000/users', values)
@@ -61,52 +66,47 @@ function Forms() {
         }
     })
 
-    // Normal Handle Form *Login
+    // Formik Handle Form *Login
 
-    const handleInput = (e) => {
-        const name = e.target.name
-        const value = e.target.value
-        setUserRegistration({ ...userRegistration, [name]: value })
-    }
+    const loginForm = useFormik({
+        initialValues: loginInitialValues,
+        validationSchema: loginSchema,
+        onSubmit: (values, action) => {
+            // login logic
+            axios.get('http://localhost:5000/users/')
+                .then(function (res) {
+                    const user = res.data.find((any) => {
+                        return any.email === values.email && any.password === values.password
+                    })
 
-    const submitForm = (e) => {
-        e.preventDefault()
-        axios.get('http://localhost:5000/users/')
-            .then(function (res) {
-                const user = res.data.find((any) => {
-                    return any.email === userRegistration.email && any.password === userRegistration.password
+                    if (user) {
+                        action.resetForm()
+                        setIsLoading(true)
+                        setTimeout(() => {
+                            setIsLoginOk(true)
+                            navigateTo("/home/users")
+                            setIsLoading(false)
+                        }, 2000)
+
+                    } else {
+                        setIsLoginOk(false)
+                        action.resetForm()
+                    }
                 })
-
-                if (user) {
-                    toast('You are logged in', {
-                        position: "top-right",
-                        autoClose: 3000,
-                        type: 'success',
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    })
-                    navigateTo("/home/users")
-
-                } else {
-                    toast('Wrong Email or Password', {
-                        position: "top-right",
-                        autoClose: 3000,
-                        type: 'error',
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    })
-                }
-            })
-    }
+        }
+    })
 
     return (
         <section id='forms'>
+            {isLoading ? (
+                <div className='loading'>
+                    <div className="spinner">
+                        <div className="spinner-item"></div>
+                        <div className="spinner-item"></div>
+                        <div className="spinner-item"></div>
+                    </div>
+                </div>
+            ) : null}
             <div className={isSuccessOpen ? 'success open' : 'success'}>
                 <div className="wrapper">
                     <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
@@ -117,58 +117,47 @@ function Forms() {
                 <h2 className='success-modal-title'>Registration Successful</h2>
                 <button className='input-button' onClick={handleLoginClick}>Login</button>
             </div>
-            {/* <form action='' className='login-form'>
-
-            <div className="form-group">
-                <label htmlFor='email'>Email</label>
-                <input type='email' id='email' placeholder='Enter Email' 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor='password'>Password</label>
-                <input type='password' id='password' placeholder='Enter Password' 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
-
-        </form> */}
-
             <div className='forms-container'>
                 <article className="login-form">
-                    <ToastContainer />
                     <h1 className='form-title'>Login</h1>
-                    {/* <p style={
-                     textAlign="center",
-                     padding= "1rem",
-                     marginBottom= "1rem"
-                     border= "1px solid"
-                     borderRadius= "8px",
-                     color= "red",
-                     borderColor= "red"
-                }>Please Provide Valid Credentials</p> */}
-                    <form onSubmit={submitForm}>
+                    <form onSubmit={loginForm.handleSubmit}>
                         <div className="input-block">
                             <label className='input-label' htmlFor='email'>Email</label>
-                            <input type="email" name='email'
+                            <input
+                                type="email"
+                                name='email'
+                                autoComplete='off'
+                                id='log_email'
                                 required
-                                value={userRegistration.email}
-                                onChange={handleInput}
+                                value={loginForm.values.email}
+                                onChange={loginForm.handleChange}
+                                onBlur={loginForm.handleBlur}
                             />
+                            {loginForm.errors.email && loginForm.touched.email ?
+                                (<p className='form-error'>{loginForm.errors.email}</p>) :
+                                null}
                         </div>
 
                         <div className="input-block">
                             <label className='input-label' htmlFor='password'>Password</label>
-                            <input type="password" name='password'
+                            <input
+                                type='password'
+                                name='password'
+                                id='log_password'
+                                autoComplete='off'
                                 required
-                                value={userRegistration.password}
-                                onChange={handleInput}
+                                value={loginForm.values.password}
+                                onChange={loginForm.handleChange}
+                                onBlur={loginForm.handleBlur}
                             />
+                            {loginForm.errors.password && loginForm.touched.password ?
+                                (<p className='form-error'>{loginForm.errors.password}</p>) :
+                                null}
                         </div>
-
-                        <button type="submit" className='input-button'>Login</button>
+                        <div className='button-block'>
+                            <button type="submit" className='input-button'>Login</button>
+                        </div>
+                        {isLoginOk ? null : (<p className='login-error'>** Wrong Username or Password **</p>)}
                         <p className="sign-up">
                             Dont have an account? <span onClick={toRight}>Register now</span>
                         </p>
@@ -177,7 +166,7 @@ function Forms() {
 
                 <article className='registration-form'>
                     <h2 className='form-title'>Register</h2>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={registerForm.handleSubmit}>
                         <div className='input-block'>
                             <label className='input-label' htmlFor='name'>Name</label>
                             <input
@@ -185,12 +174,12 @@ function Forms() {
                                 name='name'
                                 autoComplete='off'
                                 id='name'
-                                value={values.name}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                value={registerForm.values.name}
+                                onChange={registerForm.handleChange}
+                                onBlur={registerForm.handleBlur}
                             />
-                            {errors.name && touched.name ?
-                                (<p className='form-error'>{errors.name}</p>) :
+                            {registerForm.errors.name && registerForm.touched.name ?
+                                (<p className='form-error'>{registerForm.errors.name}</p>) :
                                 null}
                         </div>
                         <div className='input-block'>
@@ -199,13 +188,13 @@ function Forms() {
                                 type='email'
                                 name='email'
                                 autoComplete='off'
-                                id='email'
-                                value={values.email}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                id='reg_email'
+                                value={registerForm.values.email}
+                                onChange={registerForm.handleChange}
+                                onBlur={registerForm.handleBlur}
                             />
-                            {errors.email && touched.email ?
-                                (<p className='form-error'>{errors.email}</p>) :
+                            {registerForm.errors.email && registerForm.touched.email ?
+                                (<p className='form-error'>{registerForm.errors.email}</p>) :
                                 null}
                         </div>
                         <div className='input-block'>
@@ -214,13 +203,13 @@ function Forms() {
                                 type='password'
                                 name='password'
                                 autoComplete='off'
-                                id='password'
-                                value={values.password}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                id='reg_password'
+                                value={registerForm.values.password}
+                                onChange={registerForm.handleChange}
+                                onBlur={registerForm.handleBlur}
                             />
-                            {errors.password && touched.password ?
-                                (<p className='form-error'>{errors.password}</p>) :
+                            {registerForm.errors.password && registerForm.touched.password ?
+                                (<p className='form-error'>{registerForm.errors.password}</p>) :
                                 null}
                         </div>
                         <div className='input-block'>
@@ -230,12 +219,12 @@ function Forms() {
                                 name='confirm_password'
                                 autoComplete='off'
                                 id='confirm_password'
-                                value={values.confirm_password}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                value={registerForm.values.confirm_password}
+                                onChange={registerForm.handleChange}
+                                onBlur={registerForm.handleBlur}
                             />
-                            {errors.confirm_password && touched.confirm_password ?
-                                (<p className='form-error'>{errors.confirm_password}</p>) :
+                            {registerForm.errors.confirm_password && registerForm.touched.confirm_password ?
+                                (<p className='form-error'>{registerForm.errors.confirm_password}</p>) :
                                 null}
                         </div>
                         <div className='button-block'>
@@ -246,7 +235,7 @@ function Forms() {
                         </p>
                     </form>
                 </article>
-                <article className='cover-image'>
+                <article className='cover-image' onClick={skipLogin}>
                 </article>
             </div>
         </section>

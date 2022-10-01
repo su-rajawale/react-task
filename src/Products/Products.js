@@ -8,7 +8,7 @@ import './Products.css'
 function Products() {
   
   const [photos, setPhotos] = useState([])
-  const BASE_URL = 'https://jsonplaceholder.typicode.com/users'
+  const BASE_URL = 'http://localhost:5000/employees'
 
   const getPhotos = async ()=>{
     const response = await toast.promise(

@@ -3,17 +3,14 @@ import React, { useState } from 'react'
 import Button from '@mui/material/Button'
 import Form from 'react-bootstrap/Form';
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 // import { ToastContainer, toast } from 'react-toastify';
 import './Users.css'
 
 
 
 function AddUser(props) {
-    // usenavigate to navigate to specific page
-    let navigate = useNavigate()
     const closeModal = props.close
-    const BASE_URL = 'https://jsonplaceholder.typicode.com/users'
+    const BASE_URL = 'http://localhost:5000/employees'
 
     const [user, setUser] = useState({
         // set default values for user data

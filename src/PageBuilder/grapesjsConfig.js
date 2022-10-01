@@ -1,6 +1,5 @@
-import React from 'react'
 import 'grapesjs/dist/css/grapes.min.css'
-import grapesjs from 'grapesjs'
+// import grapesjs from 'grapesjs'
 import gjsBlocksBasic from 'grapesjs-blocks-basic'
 import gjsPresetWebpage from 'grapesjs-preset-webpage'
 
@@ -15,10 +14,10 @@ function myPlugin(editor){
     });
 }
 
-var editor = grapesjs.init({
-    container : '#gjs',
-    plugins: [myPlugin]
-});
+// var editor = grapesjs.init({
+//     container : '#gjs',
+//     plugins: [myPlugin]
+// });
 
 function grapesjsConfig() {
     return {

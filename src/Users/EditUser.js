@@ -4,17 +4,12 @@ import Button from '@mui/material/Button'
 import Form from 'react-bootstrap/Form';
 import axios from 'axios'
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom'
 import './Users.css'
 
 function EditUser(props) {
-    // useparams to extract data from url
-    // const { id } = useParams()
+    
     const rowId = props.id
     const closeModal = props.close
-
-    // usenavigate to navigate to specific page
-    let navigate = useNavigate()
 
     const [user, setUser] = useState({
         // set default values for user data

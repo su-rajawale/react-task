@@ -15,7 +15,6 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom'
 import Tooltip from '@mui/material/Tooltip';
-import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import { FiSend } from 'react-icons/fi'
 
@@ -56,7 +55,7 @@ function Invite() {
       console.log(e)
       let value = parseInt(e.value)
       const source = employees.find(x => x.id === value)
-      if(source == undefined){
+      if(source === undefined){
         console.log('source is undefined')
       }else if ('id' in source) {
         delete source.id
