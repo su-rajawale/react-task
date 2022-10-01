@@ -1,0 +1,35 @@
+#blocks {
+    display: flex;
+    flex-wrap: wrap;
+    width: 10%;
+    height: calc(100vh - 75px);
+    overflow: scroll;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+#blocks::-webkit-scrollbar, .canvas::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+.editor-window {
+    display: flex;
+}
+
+.canvas {
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.panel__top {
+    padding: 0;
+    width: 100%;
+    display: flex;
+    position: initial;
+    justify-content: center;
+    justify-content: space-between;
+  }
+  .panel__basic-actions {
+    position: initial;
+  }

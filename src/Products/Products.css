@@ -1,0 +1,38 @@
+img {
+  max-width: 100%;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-text {
+  flex: 1;
+}
+
+.email {
+  background: #0d6efd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.email a {
+  color: white;
+  text-decoration: none;
+}
+
+.name {
+  color: #0d6efd;
+  text-decoration: underline;
+}
