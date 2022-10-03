@@ -52,18 +52,13 @@ function Invite() {
 
   const addQuote = (e) => {
     if (employees) {
-      console.log(e)
       let value = parseInt(e.value)
       const source = employees.find(x => x.id === value)
-      if(source === undefined){
-        console.log('source is undefined')
-      }else if ('id' in source) {
-        delete source.id
-        axios.post('http://localhost:5000/quotes', source)
-        getQuotes()
-      } else {
-        console.log('no id')
-      }
+      axios.post('http://localhost:5000/quotes', source)
+      .catch((err)=> {
+        alert('already exists')
+      })
+      getQuotes()
     }
   }
 
@@ -101,7 +96,14 @@ function Invite() {
           </Tooltip>
         </span>
       </div>
-      <Select className='add-invite' options={myOptions} placeholder='select users to invite' isSearchable onChange={(e) => { addQuote(e) }} />
+
+      <Select 
+      className='add-invite' 
+      options={myOptions} 
+      placeholder='select users to invite' 
+      isSearchable onChange={(e) => { addQuote(e) }} 
+      />
+
       <TableContainer>
         <Table>
           <TableHead>
