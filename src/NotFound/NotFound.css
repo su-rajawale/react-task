@@ -1,8 +1,9 @@
 #notfound {
     display: flex;
     justify-content: center;
-    padding-top: 10%;
+    align-items: center;
     text-align: center;
+    margin-top: 10rem;
 }
 
 .notfound {
@@ -12,5 +13,6 @@
 }
 
 .notfound h1 {
-    font-size: 5rem;
+    font-weight: normal;
+    font-size: 8rem;
 }

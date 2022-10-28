@@ -1,6 +1,7 @@
 /* Common */
 
 /* Users */
+
 .users {
   padding: 24px;
 }
@@ -46,15 +47,6 @@
 
 .action > * {
   margin-right: 0.5rem;
-}
-
-.action * {
-  visibility: hidden;
-  transition: 50ms ease-in-out;
-}
-
-tr:hover .action * {
-  visibility: visible;
 }
 
 .fetch-error {
@@ -119,6 +111,11 @@ dialog#edit-user-modal {
   /* background-color: whitesmoke; */
   border-radius: 8px;
   /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
+}
+
+.user-error {
+  color: red;
+  font-size: 1rem;
 }
 
 /* Add/Edit user end */

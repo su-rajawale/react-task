@@ -6,11 +6,29 @@ import gjsPresetWebpage from 'grapesjs-preset-webpage'
 function myPlugin(editor){
     editor.BlockManager.add('my-first-block', {
       label: 'My block',
-      content: `<h1>Title</h1>
-                    <h3>this is where a subtitle would be</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, 
-                    molestiae molestias illum deserunt minus dignissimos nam nesciunt 
-                    dolor minima alias?</p>`,
+      content: `<div class='mydiv'>
+      <h1>Welcome Back!</h1>
+      <form action="/" method="post">
+      
+        <div class="field-wrap">
+        <label>
+          Email Address<span class="req">*</span>
+        </label>
+        <input type="email"required autocomplete="off"/>
+      </div>
+      
+      <div class="field-wrap">
+        <label>
+          Password<span class="req">*</span>
+        </label>
+        <input type="password"required autocomplete="off"/>
+      </div>
+      
+      <p class="forgot"><a href="#">Forgot Password?</a></p>
+      
+      <button class="button button-block"/>Log In</button>
+      
+      </form></div>`,
     });
 }
 

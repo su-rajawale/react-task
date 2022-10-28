@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'grapesjs/dist/css/grapes.min.css';
 import grapesjs from 'grapesjs'
 import './PageBuilder.css'
@@ -7,6 +7,7 @@ import dynamicConfig from './grapesjsConfig'
 
 
 function PageBuilder() {
+    const [components, setComponents] = useState()
 
     const loadComponents = (editor) => {
         editor.BlockManager.add('blocks', {
@@ -54,6 +55,7 @@ function PageBuilder() {
                     label: 'JSON',
                     context: 'show-json',
                     command(editor) {
+                        setComponents(editor.getComponents())
                         editor.Modal.setTitle('Components JSON')
                             .setContent(`<textarea style="width:100%; height: 250px;">
                       ${JSON.stringify(editor.getComponents())}
@@ -78,8 +80,8 @@ function PageBuilder() {
     return (
         <section id='pagebuilder'>
             <article>
-                <div class="panel__top">
-                    <div class="panel__basic-actions"></div>
+                <div className="panel__top">
+                    <div className="panel__basic-actions"></div>
                 </div>
                 <div className='editor-window'>
                     <div className='canvas' id='gjs'>
@@ -87,6 +89,7 @@ function PageBuilder() {
                     {/* <div id='blocks'></div> */}
                 </div>
             </article>
+            <button onClick={()=>{console.log(components)}}>Get the components</button>
         </section>
     )
 }

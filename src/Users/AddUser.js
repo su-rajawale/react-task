@@ -6,97 +6,119 @@ import axios from 'axios'
 // import { ToastContainer, toast } from 'react-toastify';
 import './Users.css'
 
+import { useFormik } from 'formik'
+import { userSchema } from './schemas'
+
+
+const userInitialValues = {
+    name: '',
+    username: '',
+    email: '',
+    phone: '',
+    website: ''
+}
 
 
 function AddUser(props) {
     const closeModal = props.close
     const BASE_URL = 'http://localhost:5000/employees'
 
-    const [user, setUser] = useState({
-        // set default values for user data
-        name: '',
-        username: '',
-        email: '',
-        phone: '',
-        website: ''
+    const addUserForm = useFormik({
+        initialValues: userInitialValues,
+        validationSchema: userSchema,
+        onSubmit: (values, action) => {
+            axios.post(BASE_URL, values)
+            action.resetForm()
+            closeModal()
+        }
     })
 
-    // onsubmit function runs form is submitted
-    // and event is passed to process data from that event
-    const onSubmit = async e => {
-        // prevent default form behaviour
-        e.preventDefault()
-
-        // await post request with user array as data to post
-        console.log(user)
-        await axios.post(BASE_URL, user)
-
-        // navigate to users page after submit
-        // navigate("/users")
-        setUser({
-            name: '',
-            username: '',
-            email: '',
-            phone: '',
-            website: ''
-        })
-
-
-        // Close Modal
-        closeModal()
-    }
-
     // destructuring the user
-    const { name, username, email, phone, website } = user
+    // const { name, username, email, phone, website } = user
 
     // oninputchange runs each time input value changes
     // and updates values of corresponding inputs
-    const onInputChange = e => {
-        // set user in user array using setuser function and
-        // map each user's name and value pair
-        setUser({ ...user, [e.target.name]: e.target.value })
-    }
 
     return (
         <section id="add_users">
             <article>
                 <h1 className='add-user-title'>Add Employee</h1>
                 <div className='react-form1'>
-                    <Form onSubmit={e => onSubmit(e)}>
+                    <Form onSubmit={addUserForm.handleSubmit}>
                         <Form.Group className="mb-3">
                             <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Name" name='name'
-                                onChange={e => onInputChange(e)}
-                                value={name}
+                            <Form.Control
+                                type="text"
+                                name='name'
+                                autoComplete='on'
+                                id='name'
+                                value={addUserForm.values.name}
+                                onChange={addUserForm.handleChange}
+                                onBlur={addUserForm.handleBlur}
                             />
+                            {addUserForm.errors.name && addUserForm.touched.name ?
+                                (<p className='user-error'>{addUserForm.errors.name}</p>) :
+                                null}
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" placeholder="username" name='username'
-                                onChange={e => onInputChange(e)}
-                                value={username}
+                            <Form.Control
+                                type="text"
+                                name='username'
+                                autoComplete='on'
+                                id='username'
+                                value={addUserForm.values.username}
+                                onChange={addUserForm.handleChange}
+                                onBlur={addUserForm.handleBlur}
                             />
+                            {addUserForm.errors.username && addUserForm.touched.username ?
+                                (<p className='user-error'>{addUserForm.errors.username}</p>) :
+                                null}
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" placeholder="Email" name='email'
-                                onChange={e => onInputChange(e)}
-                                value={email}
+                            <Form.Control
+                                type="email"
+                                name='email'
+                                autoComplete='on'
+                                id='email'
+                                value={addUserForm.values.email}
+                                onChange={addUserForm.handleChange}
+                                onBlur={addUserForm.handleBlur}
                             />
+                            {addUserForm.errors.email && addUserForm.touched.email ?
+                                (<p className='user-error'>{addUserForm.errors.email}</p>) :
+                                null}
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Phone No.</Form.Label>
-                            <Form.Control type="number" placeholder="Phone" name='phone'
-                                onChange={e => onInputChange(e)}
-                                value={phone}
+                            <Form.Control
+                                type="number"
+                                name='phone'
+                                autoComplete='on'
+                                id='phone'
+                                value={addUserForm.values.phone}
+                                onChange={addUserForm.handleChange}
+                                onBlur={addUserForm.handleBlur}
                             />
+                            {addUserForm.errors.phone && addUserForm.touched.phone ?
+                                (<p className='user-error'>{addUserForm.errors.phone}</p>) :
+                                null}
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Website</Form.Label>
-                            <Form.Control type="text" placeholder="Website" name='website'
-                                onChange={e => onInputChange(e)}
-                                value={website}
+                            <Form.Control
+                                type="text"
+                                name='website'
+                                autoComplete='on'
+                                id='website'
+                                value={addUserForm.values.website}
+                                onChange={addUserForm.handleChange}
+                                onBlur={addUserForm.handleBlur}
                             />
+                            {addUserForm.errors.website && addUserForm.touched.website ?
+                                (<p className='user-error'>{addUserForm.errors.website}</p>) :
+                                null}
                         </Form.Group>
                         {/* <Button variant="primary" type="submit" style={{marginRight: "0.5rem"}} >Add User</Button>
                             <Button variant="secondary" type="reset" onClick={closeModal}>Cancel</Button> */}

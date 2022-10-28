@@ -1,0 +1,111 @@
+.builder-heading {
+  display: flex;
+  padding: 24px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.builder-heading button {
+  margin-left: auto;
+}
+
+.form-builder {
+  padding: 24px;
+}
+
+.form-builder > div > div:first-of-type.row {
+    align-items: center;
+    padding: 24px;
+    border-radius: 8px;
+    /* border: 1px solid gray; */
+    margin-bottom: 1rem;
+    background-color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+#form-data {
+  padding: 24px;
+  max-width: 50vw;
+  margin-inline: auto;
+}
+
+.formio-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.5rem;
+}
+
+.form-edit svg {
+  width: 30px;
+  height: auto;
+  cursor: pointer;
+}
+
+.form-loader {
+  overflow: hidden;
+  position: absolute;
+  inset: 0;
+  z-index: 9999;
+  background-color: whitesmoke;
+}
+
+.loader {
+  width: 5rem;
+  height: 5rem;
+}
+
+.form-error {
+  padding: 24px;
+  border-radius: 10px;
+  background-color: beige;
+}
+
+.form-error-heading {
+  padding-bottom: 1rem;
+}
+
+/* List */
+.form-error-list {
+  counter-reset: index;  
+  padding: 0;
+  max-width: 50vw;
+}
+
+/* List element */
+.form-error-list li {
+  counter-increment: index; 
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  box-sizing: border-box;
+}
+
+
+/* Element counter */
+.form-error-list li::before {
+  content: counters(index, ".", decimal-leading-zero);
+  font-size: 1.5rem;
+  text-align: right;
+  font-weight: bold;
+  min-width: 50px;
+  padding-right: 12px;
+  font-variant-numeric: tabular-nums;
+  align-self: flex-start;
+  background-image: linear-gradient(to bottom, aquamarine, orangered);
+  background-attachment: fixed;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.form-data {
+  padding: 24px;
+}
+

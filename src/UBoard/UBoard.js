@@ -2,34 +2,93 @@ import React, { useState } from 'react'
 import './UBoard.css'
 import Column from './Column'
 import { DragDropContext } from 'react-beautiful-dnd'
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+
+import Table from '@mui/material/Table'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Tasks from './Tasks'
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button'
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+
+// const task = {id:1, heading:"Benton", content:"Chanay Sample", amount:"2500"}
 
 const initialData = {
     tasks: {
-        1: { id: 1, content: "we say goodbye to our beloved pet, Nibbler." },
-        2: { id: 2, content: "It's okay, Bender. I like cooking too." },
-        3: { id: 3, content: "The alien mothership is in orbit here." },
-        4: { id: 4, content: "Zoidberg, that doesn't make sense. But, okay!" },
-        5: { id: 5, content: "I was having the most wonderful dream." },
-        6: { id: 6, content: " I respect Harold Zoid too much to beat him." }
+        1:
+        {
+            id: 1,
+            heading: "Benton",
+            content: "Chanay Sample",
+            amount: "2500"
+        },
+        2:
+        {
+            id: 2,
+            heading: "Turhlar and Turhalar Attys",
+            content: "James sample",
+            amount: "2300"
+        },
+        3:
+        {
+            id: 3,
+            heading: "Chemel",
+            content: "Rama sample",
+            amount: "1100"
+        },
+        4:
+        {
+            id: 4,
+            heading: "King",
+            content: "Gregory sample",
+            amount: "100"
+        },
+        5:
+        {
+            id: 5,
+            heading: "Fleds Printing Service",
+            content: "rosted sample",
+            amount: "3002"
+        },
+        6:
+        {
+            id: 6,
+            heading: "Printing Dimensions",
+            content: "romanian sample",
+            amount: "2031"
+        }
     },
     columns: {
         "column-1": {
             id: "column-1",
-            title: "To Do",
-            taskIds: [1, 2, 3]
+            title: "Qualification",
+            taskIds: [1, 2]
         },
         "column-2": {
             id: "column-2",
-            title: "In Progress",
-            taskIds: [4, 5]
+            title: "Need Analysis",
+            taskIds: [3, 4]
         },
         "column-3": {
             id: "column-3",
-            title: "Done",
-            taskIds: [6]
+            title: "Value Proposition",
+            taskIds: [5]
+        },
+        "column-4": {
+            id: "column-4",
+            title: "Identify descision maker",
+            taskIds: []
+        },
+        "column-5": {
+            id: "column-5",
+            title: "Closed Won",
+            taskIds: []
         }
     },
-    columnOrder: ["column-1", "column-2", "column-3"]
+    columnOrder: ["column-1", "column-2", "column-3", "column-4", "column-5"]
 }
 
 const reorderColumnList = (sourceCol, startIndex, endIndex) => {
@@ -45,10 +104,29 @@ const reorderColumnList = (sourceCol, startIndex, endIndex) => {
     return newColumn;
 };
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
 
 
 function UBoard() {
     const [state, setState] = useState(initialData);
+    const [isKanban, setKanban] = useState(false)
+
+    const changeView = () => {
+        if (!isKanban) {
+            setKanban(true)
+        } else {
+            setKanban(false)
+        }
+    }
 
     const handleDragEnd = (result) => {
         const { destination, source } = result;
@@ -110,17 +188,52 @@ function UBoard() {
     };
 
     return (
-        <section id='uboard'>
-            <DragDropContext onDragEnd={handleDragEnd}>
-                <article className='uboard-board'>
-                    {state.columnOrder.map((columnId) => {
-                        const column = state.columns[columnId]
-                        const tasks = column.taskIds.map((taskId) => state.tasks[taskId])
-                        return <Column key={column.id} column={column} tasks={tasks} />
-                    })}
-                </article>
-            </DragDropContext>
-        </section>
+        <>
+            <div className='board-view'>
+                <span style={{marginRight: '20px'}}><strong>Change View</strong></span>
+                <Button variant='contained' color='primary' onClick={changeView}>
+                    {isKanban ? <DashboardIcon /> :
+                        <FormatListBulletedIcon />}
+                </Button>
+            </div>
+            {!isKanban ?
+                <section id='uboard2'>
+                    <TableContainer>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell>+</StyledTableCell>
+                                    <StyledTableCell>Deal Name</StyledTableCell>
+                                    <StyledTableCell>Ammout</StyledTableCell>
+                                    <StyledTableCell>Stage</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <DragDropContext onDragEnd={handleDragEnd}>
+                                {
+                                    state.columnOrder.map((columnId) => {
+                                        const column = state.columns[columnId]
+                                        const tasks = column.taskIds.map((taskId) => state.tasks[taskId])
+                                        return <Tasks key={column.id} tasks={tasks} column={column} />
+                                    })
+                                }
+
+                            </DragDropContext>
+                        </Table>
+                    </TableContainer>
+                </section> :
+                <section id='uboard'>
+                    <DragDropContext onDragEnd={handleDragEnd}>
+                        <article className='uboard-board'>
+                            {state.columnOrder.map((columnId) => {
+                                const column = state.columns[columnId]
+                                const tasks = column.taskIds.map((taskId) => state.tasks[taskId])
+                                return <Column key={column.id} column={column} tasks={tasks} />
+                            })}
+                        </article>
+                    </DragDropContext>
+                </section>}
+
+        </>
     )
 }
 

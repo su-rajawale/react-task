@@ -3,20 +3,20 @@ import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
 import './Invite.css'
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
 import { MdOutlineDragHandle } from 'react-icons/md'
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Link } from 'react-router-dom'
-import Tooltip from '@mui/material/Tooltip';
-import Fab from '@mui/material/Fab';
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
+import Tooltip from '@mui/material/Tooltip'
+import Fab from '@mui/material/Fab'
 import { FiSend } from 'react-icons/fi'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
@@ -38,6 +38,8 @@ function Invite() {
             value: `${element.id}`
           })
         });
+
+        console.log(tempArray)
         setMyoptions(tempArray)
       })
   }
@@ -55,8 +57,16 @@ function Invite() {
       let value = parseInt(e.value)
       const source = employees.find(x => x.id === value)
       axios.post('http://localhost:5000/quotes', source)
-      .catch((err)=> {
-        alert('already exists')
+      .catch(()=> {
+        toast.error('Already exists', {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
       })
       getQuotes()
     }
@@ -101,7 +111,8 @@ function Invite() {
       className='add-invite' 
       options={myOptions} 
       placeholder='select users to invite' 
-      isSearchable onChange={(e) => { addQuote(e) }} 
+      isSearchable onChange={(e) => { addQuote(e) }}
+      menuIsOpen={true}
       />
 
       <TableContainer>
@@ -135,13 +146,6 @@ function Invite() {
                               <TableCell>{phone}</TableCell>
                               <TableCell>{website}</TableCell>
                               <TableCell className='action'>
-                                <Tooltip arrow title='view item'>
-                                  <Link to={'/home/invite'}>
-                                    <IconButton color='secondary'>
-                                      <VisibilityIcon />
-                                    </IconButton>
-                                  </Link>
-                                </Tooltip>
                                 <Tooltip arrow title='Delete item'>
                                   <IconButton color='error' onClick={() => { deleteQuote(id) }}>
                                     <DeleteIcon />
@@ -161,6 +165,7 @@ function Invite() {
           </DragDropContext>
         </Table>
       </TableContainer>
+      <ToastContainer />
     </div>
 
 

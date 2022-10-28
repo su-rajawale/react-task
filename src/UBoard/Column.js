@@ -19,7 +19,9 @@ function Column({ column, tasks }) {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                   >
+                    <p><strong>{task.heading}</strong></p>
                     <p>{task.content}</p>
+                    <p>$ {task.amount}</p>
                   </div>
                 )}
               </Draggable>

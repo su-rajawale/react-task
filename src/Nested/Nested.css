@@ -21,3 +21,7 @@
 .food p:not(.App p:last-of-type) {
     margin-bottom: 0.8rem
 }
+
+.table {
+    padding: 24px;
+}
