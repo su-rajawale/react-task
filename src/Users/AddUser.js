@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-// import Button from 'react-bootstrap/Button';
 import Button from '@mui/material/Button'
 import Form from 'react-bootstrap/Form';
 import axios from 'axios'
-// import { ToastContainer, toast } from 'react-toastify';
 import './Users.css'
 
 import { useFormik } from 'formik'
@@ -114,8 +112,6 @@ function AddUser(props) {
                                 (<p className='user-error'>{addUserForm.errors.website}</p>) :
                                 null}
                         </Form.Group>
-                        {/* <Button variant="primary" type="submit" style={{marginRight: "0.5rem"}} >Add User</Button>
-                            <Button variant="secondary" type="reset" onClick={closeModal}>Cancel</Button> */}
                         <Button variant='contained' color='primary' type="submit" style={{ marginRight: "0.5rem" }} >Add Employee</Button>
                         <Button variant='contained' color='error' type="reset" onClick={closeModal}>Cancel</Button>
                     </Form>

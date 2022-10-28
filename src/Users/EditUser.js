@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import Button from 'react-bootstrap/Button';
 import Button from "@mui/material/Button";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
@@ -34,7 +33,7 @@ function EditUser(props) {
   const editUserForm = useFormik({
     initialValues: initialValues,
     validationSchema: userSchema,
-    enableReinitialize: true,
+    enableReinitialize: true, // this enables reinitialization of initial values
     onSubmit: (values) => {
       axios.put(`http://localhost:5000/employees/${rowId}`, values);
       closeModal();
@@ -64,6 +63,9 @@ function EditUser(props) {
                 onChange={editUserForm.handleChange}
                 onBlur={editUserForm.handleBlur}
               />
+               {editUserForm.errors.name && editUserForm.touched.name ?
+                                (<p className='user-error'>{editUserForm.errors.name}</p>) :
+                                null}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Username</Form.Label>
@@ -76,6 +78,9 @@ function EditUser(props) {
                 onChange={editUserForm.handleChange}
                 onBlur={editUserForm.handleBlur}
               />
+               {editUserForm.errors.username && editUserForm.touched.username ?
+                                (<p className='user-error'>{editUserForm.errors.username}</p>) :
+                                null}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
@@ -88,6 +93,9 @@ function EditUser(props) {
                 onChange={editUserForm.handleChange}
                 onBlur={editUserForm.handleBlur}
               />
+               {editUserForm.errors.email && editUserForm.touched.email ?
+                (<p className='user-error'>{editUserForm.errors.email}</p>) :
+                null}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Phone No.</Form.Label>
@@ -100,6 +108,9 @@ function EditUser(props) {
                 onChange={editUserForm.handleChange}
                 onBlur={editUserForm.handleBlur}
               />
+               {editUserForm.errors.phone && editUserForm.touched.phone ?
+                (<p className='user-error'>{editUserForm.errors.phone}</p>) :
+                null}
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Website</Form.Label>
@@ -112,6 +123,9 @@ function EditUser(props) {
                 onChange={editUserForm.handleChange}
                 onBlur={editUserForm.handleBlur}
               />
+               {editUserForm.errors.website && editUserForm.touched.website ?
+                (<p className='user-error'>{editUserForm.errors.website}</p>) :
+                null}
             </Form.Group>
             <Button variant="contained" color="primary" type="submit" style={{ marginRight: "0.5rem" }}>Update Employee</Button>
             <Button variant="contained" color="error" type="reset" onClick={closeModal}>Cancel</Button>
