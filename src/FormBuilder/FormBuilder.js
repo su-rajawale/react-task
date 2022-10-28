@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, FormBuilder as FormBuilderIo, FormEdit } from "@formio/react";
 import axios from "axios";
 import "formiojs/dist/formio.full.css";
-import "./FormBuilder.css";
+import './FormBuilder.css'
 import { AiOutlineEdit } from "react-icons/ai";
 
 function FormBuilder() {
@@ -81,7 +81,7 @@ function FormBuilder() {
       ) : null}
       {isDisplayed ? (
         <div className="App">
-          <div className="form-builder">
+          <div className='form-builder'>
             <FormEdit
               form={formData}
               saveText="save &#128190;"

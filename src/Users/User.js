@@ -41,7 +41,7 @@ function User() {
             <section id="user" key={index}>
               <article className='user-info'>
                 <p>
-                  <Link to='/users' className='back-button'>
+                  <Link to='/employees' className='back-button'>
                     <Button className='rctooltip' data-tooltip='Back to Home' variant="primary">
                       <HiChevronLeft />
                     </Button>

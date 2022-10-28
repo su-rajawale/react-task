@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
@@ -25,12 +25,16 @@ import EditIcon from '@mui/icons-material/Edit'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import AddIcon from '@mui/icons-material/Add'
 
+// http://localhost:5000/employees
+
 function Users() {
     const [users, setUsers] = useState([])
     const [fetchError, setFetchError] = useState('')
     const BASE_URL = 'http://localhost:5000/employees/'
     
     const [rowId, updateRowId] = useState()
+    const addUserModal = useRef()
+    const editUserModal = useRef()
 
     const getUsers = async () => {
             await axios.get(BASE_URL)
@@ -46,6 +50,7 @@ function Users() {
         await axios.delete(`${BASE_URL}${id}`)
         getUsers()
         toast.info('The User is deleted', {
+            type: 'error',
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: false,
@@ -68,24 +73,20 @@ function Users() {
     // opening and closing of moadals
 
     const openEditUserModal = () => {
-        const modal = document.getElementById('edit-user-modal')
-        modal.showModal()
+        editUserModal.current.showModal()
     }
 
     const openAddUserModal = () => {
-        const modal = document.getElementById('add-user-modal')
-        modal.showModal()
+        addUserModal.current.showModal()
     }
 
     const closeAddUserModal = () => {
-        const modal = document.getElementById('add-user-modal')
-        modal.close()
+        addUserModal.current.close()
         getUsers()
     }
 
     const closeEditUserModal = () => {
-        const modal = document.getElementById('edit-user-modal')
-        modal.close()
+        editUserModal.current.close()
         updateRowId(null)
         getUsers()
     }
@@ -108,11 +109,11 @@ function Users() {
                 </span>
             </div>
 
-            <dialog id='add-user-modal'>
+            <dialog id='add-user-modal' ref={addUserModal}>
                 <AddUser close={closeAddUserModal} />
             </dialog>
 
-            <dialog id='edit-user-modal'>
+            <dialog id='edit-user-modal' ref={editUserModal}>
                 {rowId ? <EditUser id={rowId} close={closeEditUserModal} /> : null}
             </dialog>
 
@@ -121,7 +122,6 @@ function Users() {
                     <TableHead>
                         <TableRow>
                             <TableCell><AiOutlineDrag /></TableCell>
-                            {/* <TableCell>No.</TableCell> */}
                             <TableCell>Name</TableCell>
                             <TableCell>Username</TableCell>
                             <TableCell>Email</TableCell>

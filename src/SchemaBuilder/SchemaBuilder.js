@@ -37,6 +37,7 @@ function SchemaBuilder() {
   useEffect(() => {
     getOptions();
     getSchema();
+    // console.log(options)
   }, []);
 
   return (

@@ -59,6 +59,27 @@ const initialData = {
             heading: "Printing Dimensions",
             content: "romanian sample",
             amount: "2031"
+        },
+        7:
+        {
+            id: 7,
+            heading: "bankman stantlan",
+            content: "shonen sample",
+            amount: "885"
+        },
+        8:
+        {
+            id: 8,
+            heading: "Fletz Chapman",
+            content: "Donnetto Foller sample",
+            amount: "4214"
+        },
+        9:
+        {
+            id: 9,
+            heading: "Ghibli Interior",
+            content: "studio sample",
+            amount: "1204"
         }
     },
     columns: {
@@ -75,12 +96,12 @@ const initialData = {
         "column-3": {
             id: "column-3",
             title: "Value Proposition",
-            taskIds: [5]
+            taskIds: [5,6,7]
         },
         "column-4": {
             id: "column-4",
             title: "Identify descision maker",
-            taskIds: []
+            taskIds: [8,9]
         },
         "column-5": {
             id: "column-5",

@@ -4,12 +4,18 @@
 }
 
 #uboard article {
-    display: inline-flex;
+    /* display: inline-flex;
     overflow-x: auto;
     gap: 1rem;
     padding: 0 24px 0 24px;
     height: 80%;
-    width: 100%;
+    width: 100%; */
+    display: grid;
+    height: 100%;
+    gap: 10px;
+    grid-auto-columns: minmax(max-content, auto);
+    grid-auto-flow: column;
+    overflow-x: scroll;
     position: relative;
 }
 
