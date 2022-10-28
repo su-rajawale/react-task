@@ -33,12 +33,6 @@ function AddUser(props) {
         }
     })
 
-    // destructuring the user
-    // const { name, username, email, phone, website } = user
-
-    // oninputchange runs each time input value changes
-    // and updates values of corresponding inputs
-
     return (
         <section id="add_users">
             <article>

@@ -25,8 +25,6 @@ import EditIcon from '@mui/icons-material/Edit'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import AddIcon from '@mui/icons-material/Add'
 
-// http://localhost:5000/employees
-
 function Users() {
     const [users, setUsers] = useState([])
     const [fetchError, setFetchError] = useState('')
