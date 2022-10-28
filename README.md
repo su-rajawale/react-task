@@ -4,7 +4,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can :
+
+First run `npm i` or `npm install` to install dependencies
+then run `npm run generate`
+
+### `npm run generate`
+
+Runs the app in the development mode.\
+and runs json server.\
+json fake database >> check out db.json file at root directory.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ### `npm start`
 
