@@ -42,3 +42,8 @@
 .offerList {
   padding-top: 4rem;
 }
+
+.action {
+  display: flex!important;
+  gap: 1rem;
+}

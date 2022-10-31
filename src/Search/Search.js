@@ -6,27 +6,27 @@ import Select from "react-select";
 import "./Search.css";
 
 function Search() {
-  const [error, setError] = useState(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [countries, setCountries] = useState([])
-  const [q, setQ] = useState("")
-  const [searchParam] = useState(["capital", "name", "numericCode"])
-  const [filterParam, setFilterParam] = useState(["All"])
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [countries, setCountries] = useState([]);
+  const [q, setQ] = useState("");
+  const [searchParam] = useState(["capital", "name", "numericCode"]);
+  const [filterParam, setFilterParam] = useState(["All"]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/countries/")
-      .then((res) => {
-        setIsLoaded(true)
-        setCountries(res.data)
-      })
-      .catch((err) => {
-        setIsLoaded(true)
-        setError(err)
-      });
+    .get("http://localhost:5000/countries/")
+    .then((res) => {
+      setIsLoaded(true);
+      setCountries(res.data);
+    })
+    .catch((err) => {
+      setIsLoaded(true);
+      setError(err);
+    });
   }, []);
-
-  const data = Object.values(countries)
+  
+  const data = Object.values(countries);
 
   function search(countries) {
     return countries.filter((item) => {
@@ -47,9 +47,13 @@ function Search() {
   }
 
   if (error) {
-    return <p>{error.message}</p>
+    return <p>{error.message}</p>;
   } else if (!isLoaded) {
-    return <>loading...</>
+    return (
+      <div className="form-loader">
+        <div className="loader"></div>
+      </div>
+    );
   } else {
     return (
       <div id="search">
@@ -76,10 +80,11 @@ function Search() {
                   { value: "Oceania", label: "Oceania" },
                 ]}
                 onChange={(e) => {
-                  setFilterParam(e.value)
+                  setFilterParam(e.value);
                 }}
                 aria-label="Filter Countries By Region"
               />
+              <button onClick={() => console.log(data)}>see</button>
               <span className="focus"></span>
             </div>
           </div>
@@ -115,4 +120,3 @@ function Search() {
 }
 
 export default Search;
-  

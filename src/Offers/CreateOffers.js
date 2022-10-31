@@ -20,12 +20,14 @@ const CreateOffers = ({getOffers}) => {
     });
   };
 
-  const handleSubmit = (data) => {
+  const handleSubmit = async (data) => {
     const submit = data.formData;
     const date = new Date().toDateString()
-    Object.assign(submit, {updatedAt: `${date}`})
-    axios.post('http://localhost:5000/offers', submit)
-    getOffers()
+    Object.assign(submit, {updatedAt: `${date}`, activated: true})
+    await axios.post('http://localhost:5000/offers', submit)
+    .then(()=> {
+      getOffers()
+    })
   };
 
   useEffect(() => {

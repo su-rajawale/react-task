@@ -82,3 +82,12 @@
 .board-view span {
     margin-left: auto;
 }
+
+.deal_stage_title span {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.deal_stage_title {
+    background-color: whitesmoke;
+}
