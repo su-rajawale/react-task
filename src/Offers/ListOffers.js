@@ -1,5 +1,6 @@
 import styles from "./styles.module.css";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -20,18 +21,38 @@ const ListOffers = ({ offers, getOffers }) => {
     getOffers();
   };
 
-  const handleActivation = (id) => {
-    axios.get("http://localhost:5000/offers/").then((res) => {
+  const handleActivation = async (id) => {
+    await axios.get("http://localhost:5000/offers/").then(async (res) => {
       const data = res.data;
       const ofr = data.find((x) => x.id === id);
       if (ofr.activated === true) {
         const dact = { activated: false };
-        axios.patch(`http://localhost:5000/offers/${id}`, dact);
+        await axios.patch(`http://localhost:5000/offers/${id}`, dact);
         getOffers();
+        toast.success("Offer Deactivated Successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: 0,
+          theme: "light",
+        });
       } else if (ofr.activated === false) {
         const act = { activated: true };
-        axios.patch(`http://localhost:5000/offers/${id}`, act);
+        await axios.patch(`http://localhost:5000/offers/${id}`, act);
         getOffers();
+        toast.success("Offer Activated Successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: 0,
+          theme: "light",
+        });
       }
     });
   };
@@ -98,7 +119,7 @@ const ListOffers = ({ offers, getOffers }) => {
                               )}
                             </IconButton>
                           </Tooltip>
-                          <Tooltip title='Download'>
+                          <Tooltip title="Download">
                             <IconButton
                               color="secondary"
                               onClick={() => handleDownload(id, file)}
@@ -116,6 +137,7 @@ const ListOffers = ({ offers, getOffers }) => {
           )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
