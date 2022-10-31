@@ -837,6 +837,64 @@
       }
     }
   ],
+  "offerSchema": [
+    {
+      "type": "object",
+      "required": [
+        "title",
+        "default",
+        "file"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title",
+          "id": 1
+        },
+        "link": {
+          "type": "string",
+          "title": "Add Link",
+          "id": 2
+        },
+        "file": {
+          "type": "string",
+          "title": "Upload File",
+          "id": 3
+        },
+        "default": {
+          "type": "boolean",
+          "title": "Make as default"
+        }
+      }
+    }
+  ],
+  "offerUiSchema": [
+    {
+      "ui:submitButtonOptions": {
+        "submitText": "Create"
+      },
+      "ui:order": [
+        "title",
+        "default",
+        "file",
+        "link"
+      ],
+      "title": {
+        "ui:autofocus": true,
+        "ui:emptyValue": ""
+      },
+      "link": {
+        "ui:emptyValue": ""
+      },
+      "default": {
+        "ui:widget": "select"
+      },
+      "file": {
+        "ui:widget": "file"
+      }
+    }
+  ],
+  "offers": [],
   "countries": {
     "af": {
       "name": "Afghanistan",

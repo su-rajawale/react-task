@@ -12,6 +12,7 @@ import FormBuilder from './FormBuilder/FormBuilder';
 import CvBuilder from './CvBuilder/CvBuilder';
 import SchemaBuilder from './SchemaBuilder/SchemaBuilder';
 import Search from './Search/Search';
+import Offers from './Offers/Offers';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
             <Route exact path='/cvbuilder' element={<CvBuilder />} />
             <Route exact path='/formbuilder' element={<SchemaBuilder />} />
             <Route exact path='/search' element={<Search />} />
+            <Route exact path='/offers' element={<Offers />} />
           </Routes>
         </div>
       </main>

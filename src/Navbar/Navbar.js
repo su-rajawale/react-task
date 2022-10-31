@@ -71,6 +71,12 @@ function Navbar() {
                 Search
               </NavLink>
             </li>
+            <li>
+              <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
+                to="/offers">
+                Offers
+              </NavLink>
+            </li>
           </ul>
 
           <Offcanvas show={show} onHide={handleClose}>
@@ -131,6 +137,12 @@ function Navbar() {
                       <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
                         to="/search">
                         Search
+                      </NavLink>
+                </li>
+                <li>
+                      <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
+                        to="/offers">
+                        Offers
                       </NavLink>
                 </li>
               </ul>
