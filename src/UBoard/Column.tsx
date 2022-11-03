@@ -1,7 +1,8 @@
 import React from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import { columnProps } from './types'
 
-function Column({ column, tasks }) {
+function Column({ column, tasks }:columnProps) {
   return (
     <div className="uboard-column">
       <div className="uboard-heading">

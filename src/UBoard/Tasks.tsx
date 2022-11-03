@@ -4,9 +4,9 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import { MdOutlineDragHandle } from "react-icons/md";
+import { columnProps } from './types'
 
-
-function Tasks({ tasks, column }) {
+function Tasks({ column, tasks }:columnProps) {
 
   return (
     <Droppable droppableId={column.id}>

@@ -3,15 +3,12 @@ import axios from 'axios'
 import { Link, useParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import { HiChevronLeft } from 'react-icons/hi'
-
-// import Card from 'react-bootstrap/Card'
-
-
+import { employeesType } from './types'
 
 function User() {
   const { id } = useParams()
 
-  const [users, setUser] = useState([])
+  const [users, setUser] = useState<employeesType[]>([])
   const BASE_URL = 'http://localhost:5000/employees/'
 
   const getUsers = async () => {

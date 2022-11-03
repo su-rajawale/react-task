@@ -1,10 +1,13 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import styles from "./styles.module.css";
 import validator from "@rjsf/validator-ajv6";
 import Form from "@rjsf/mui";
 import axios from "axios";
+import { listofferProps } from "./types";
+import { IChangeEvent } from "@rjsf/core";
 
-const CreateOffers = ({getOffers}) => {
+const CreateOffers = ({getOffers}: listofferProps) => {
   const [offerSchema, setOfferSchema] = useState();
   const [offerUiSchema, setOfferUiSchema] = useState();
 
@@ -20,7 +23,7 @@ const CreateOffers = ({getOffers}) => {
     });
   };
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (data: IChangeEvent<any,any>) => {
     const submit = data.formData;
     const date = new Date().toDateString()
     Object.assign(submit, {updatedAt: `${date}`, activated: true})

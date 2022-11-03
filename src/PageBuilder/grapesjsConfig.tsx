@@ -3,7 +3,7 @@ import 'grapesjs/dist/css/grapes.min.css'
 import gjsBlocksBasic from 'grapesjs-blocks-basic'
 import gjsPresetWebpage from 'grapesjs-preset-webpage'
 
-function myPlugin(editor){
+function myPlugin(editor: any){
     editor.BlockManager.add('my-first-block', {
       label: 'My block',
       content: `<div class='mydiv'>

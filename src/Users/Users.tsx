@@ -6,7 +6,7 @@ import './Users.css'
 import { AiOutlineDrag } from 'react-icons/ai'
 import { MdOutlineDragHandle } from 'react-icons/md'
 import 'react-select-search/style.css'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
 import AddUser from './AddUser'
 import EditUser from './EditUser'
 
@@ -24,18 +24,19 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import AddIcon from '@mui/icons-material/Add'
+import { employeesType } from './types'
 
 function Users() {
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState<employeesType[]>([])
     const [fetchError, setFetchError] = useState('')
     const BASE_URL = 'http://localhost:5000/employees/'
-    
-    const [rowId, updateRowId] = useState()
-    const addUserModal = useRef()
-    const editUserModal = useRef()
+
+    const [rowId, updateRowId] = useState<number | null>()
+    const addUserModal = useRef<HTMLDialogElement>(null)
+    const editUserModal = useRef<HTMLDialogElement>(null)
 
     const getUsers = async () => {
-            await axios.get(BASE_URL)
+        await axios.get(BASE_URL)
             .then(function (res) {
                 setUsers(res.data)
             })
@@ -44,7 +45,7 @@ function Users() {
             })
     }
 
-    const deleteUser = async id => {
+    const deleteUser = async (id: number) => {
         await axios.delete(`${BASE_URL}${id}`)
         getUsers()
         toast.info('The User is deleted', {
@@ -56,7 +57,7 @@ function Users() {
         })
     }
 
-    const handleOnDragEnd = (result) => {
+    const handleOnDragEnd = (result: DropResult) => {
         const { destination, source } = result;
 
         if (!destination) return
@@ -71,24 +72,31 @@ function Users() {
     // opening and closing of moadals
 
     const openEditUserModal = () => {
-        editUserModal.current.showModal()
+        if (editUserModal.current) {
+            editUserModal.current.showModal()
+        }
     }
 
     const openAddUserModal = () => {
-        addUserModal.current.showModal()
+        if (addUserModal.current) {
+            addUserModal.current.showModal()
+        }
     }
 
     const closeAddUserModal = () => {
-        addUserModal.current.close()
-        getUsers()
+        if (addUserModal.current) {
+            addUserModal.current.close()
+            getUsers()
+        }
     }
 
     const closeEditUserModal = () => {
-        editUserModal.current.close()
-        updateRowId(null)
-        getUsers()
+        if (editUserModal.current) {
+            editUserModal.current.close()
+            updateRowId(null)
+            getUsers()
+        }
     }
-
 
     useEffect(() => {
         getUsers()

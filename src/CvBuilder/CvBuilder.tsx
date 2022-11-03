@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import validator from "@rjsf/validator-ajv6";
 import Form from "@rjsf/mui";
@@ -31,7 +32,7 @@ function CvBuilder() {
     });
   };
 
-  const handleSubmit = (data) => {
+  const handleSubmit = (data: any) => {
     console.log(data.formData)
     // setFormData(data.formData);
     setDialogOpen(true);
@@ -57,12 +58,11 @@ function CvBuilder() {
               uiSchema={uiSchema}
               validator={validator}
               // onChange={(data)=> setValues(data)}
-              onSubmit={(data) => handleSubmit(data)}
-            />
+              onSubmit={(data: any) => handleSubmit(data)} />
           )}
         </div>
       ) : (
-        <FormPreview formdata={formData} />
+        <FormPreview formdata={formData !== undefined ? formData : {}} />
       )}
 
       <Dialog open={dialogOpen}>

@@ -24,11 +24,30 @@ import {
 //   }
 // }
 
-const styles = {
-  position: "relative",
-  background: "WhiteSmoke",
-  display: "flex"
-};
+type Item = {
+  id: string | number;
+  text: string;
+  children?: Item[];
+  nestedIn?: string | null;
+  link?: string | null;
+  type?: number;
+  amount?: number
+}
+
+type Items = {
+  id: string | number;
+  text: string;
+  children?: Item[];
+}
+
+type renderItemProp = {
+  collapseIcon: React.ReactNode;
+  depth: number;
+  handler: React.ReactNode;
+  index: number;
+  item?: Item;
+}
+
 const cssCenter = {
   display: "flex",
   alignItems: "center",
@@ -42,7 +61,7 @@ const handlerStyles = {
   borderRight: "1px solid Gainsboro"
 };
 
-const items = [
+const items: Items[] = [
   {
     id: 0,
     text: "Lot A",
@@ -98,37 +117,35 @@ const items = [
   }
 ];
 
-const renderItem = (props) => {
-  const { item, index, collapseIcon, handler } = props;
-
-  return (
-    <div
-      style={{ ...styles, fontWeight: item.children.length ? "700" : "400" }}
-    >
-      {handler}
-      {collapseIcon}
-      <div style={{ ...cssCenter, color: "LightSlateGray", width: "3rem" }}>
-        {index + 1}
-      </div>
-
+const renderItem = ({ item, index, collapseIcon, handler }: renderItemProp) => {
+    return (
       <div
-        style={{
-          padding: ".5rem",
-          flex: 1
-        }}
+        style={{ display: 'flex', background: 'whitesmoke', position: 'relative', fontWeight: item?.children?.length ? "700" : "400" }}
       >
-        {item.text}
+        {handler}
+        {collapseIcon}
+        <div style={{ ...cssCenter, color: "LightSlateGray", width: "3rem" }}>
+          {index + 1}
+        </div>
+  
+        <div
+          style={{
+            padding: ".5rem",
+            flex: 1
+          }}
+        >
+          {item?.text}
+        </div>
+        <div
+          style={{
+            padding: ".5rem",
+            width: "4rem"
+          }}
+        >
+          123 €
+        </div>
       </div>
-      <div
-        style={{
-          padding: ".5rem",
-          width: "4rem"
-        }}
-      >
-        123 €
-      </div>
-    </div>
-  );
+    );
 };
 
 function Nested() {
@@ -139,13 +156,6 @@ function Nested() {
     return (
       <div style={{ ...cssCenter, ...handlerStyles }}>
         <AiOutlineDrag />
-      </div>
-    );
-  };
-  const Collapser = ({ isCollapsed }) => {
-    return (
-      <div style={{ ...cssCenter, ...handlerStyles }}>
-        {isCollapsed ? <AiFillCaretRight /> : <AiFillCaretDown />}
       </div>
     );
   };
@@ -174,7 +184,9 @@ function Nested() {
           renderItem={renderItem}
           handler={<Handler />}
           renderCollapseIcon={({ isCollapsed }) => (
-            <Collapser isCollapsed={isCollapsed} />
+            <div style={{ ...cssCenter, ...handlerStyles }}>
+            {isCollapsed ? <AiFillCaretRight /> : <AiFillCaretDown />}
+          </div>
           )}
           collapsed={collapseAll}
         />
