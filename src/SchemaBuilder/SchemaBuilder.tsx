@@ -1,7 +1,7 @@
 import React, {useState, useEffect, SetStateAction} from 'react'
-import Select, { SingleValue } from "react-select";
-import axios from "axios";
-import { JSONSchema7 } from "json-schema"
+import Select, { SingleValue } from "react-select"
+import axios from "axios"
+import { JSONSchema7, JSONSchema7Definition } from "json-schema"
 
 
 type elementType = {
@@ -10,28 +10,28 @@ type elementType = {
 }
 
 function SchemaBuilder() {
-  const [options, setOptions] = useState<elementType[]>();
-  const [schema, setSchema] = useState<JSONSchema7[]>();
-  const [elements, setElements] = useState([]);
+  const [options, setOptions] = useState<elementType[]>()
+  const [schema, setSchema] = useState<JSONSchema7>()
+  const [elements, setElements] = useState([])
 
   const getSchema = async () => {
     await axios.get("http://localhost:5000/schema").then((res) => {
-      setSchema(res.data[0]);
+      setSchema(res.data[0])
     });
   };
 
   const getOptions = async () => {
-    if (schema) {
-      const tempArray: { label: string; value: string; }[] = [];
+    if (schema && schema.properties) {
+      const tempArray: { label: string; value: string; }[] = []
       console.log (tempArray)
-      // const response = Object.entries(schema.properties);
-      // response.forEach((element) => {
-      //   tempArray.push({
-      //     label: `${element[1].title}`,
-      //     value: `${element[1].id}`,
-      //   });
-      //   setOptions(tempArray);
-      // });
+      const response = Object.entries(schema.properties);
+      response.forEach((element: any) => {
+          tempArray.push({
+            label: `${element[1].title}`,
+            value: `${element[1].id}`,
+          });
+        setOptions(tempArray);
+      });
     }
   };
 
@@ -43,8 +43,8 @@ function SchemaBuilder() {
   };
 
   useEffect(() => {
-    getOptions();
-    getSchema();
+    getOptions()
+    getSchema()
     // console.log(options)
   }, []);
 
@@ -60,4 +60,4 @@ function SchemaBuilder() {
   );
 }
 
-export default SchemaBuilder;
+export default SchemaBuilder

@@ -18,7 +18,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import { Tooltip } from "@mui/material";
 
-const ListOffers = ({ offers, getOffers }: listofferProps) => {
+const ListOffers = ({ offers, getOffers, ...rest }: listofferProps) => {
   const deleteOffer = async (id: number) => {
     await axios.delete(`http://localhost:5000/offers/${id}`);
     getOffers();

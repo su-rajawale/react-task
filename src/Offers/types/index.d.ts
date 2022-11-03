@@ -1,3 +1,5 @@
+import React from "react"
+
 export type offerType = {
     title: string,
     default: boolean,
@@ -11,4 +13,4 @@ export type offerType = {
   export type listofferProps = {
     offers?: offerType[] | undefined,
     getOffers: ()=> any
-  }
+  } & React.ComponentProps

@@ -1,3 +1,5 @@
+import React from "react"
+
 export type employeesType = {
     name: string,
     username: string,
@@ -10,4 +12,4 @@ export type employeesType = {
 export type changeUserProps = {
     id?: number,
     close: () => void
-}
+} & React.ComponentProps
