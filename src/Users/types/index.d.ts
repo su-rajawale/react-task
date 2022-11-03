@@ -7,12 +7,7 @@ export type employeesType = {
     id: number
 }
 
-export type editUserProps = {
-    id: number,
+export type changeUserProps = {
+    id?: number,
     close: () => void
 }
-
-export type addUserProps = {
-    close: () => void
-}
-
