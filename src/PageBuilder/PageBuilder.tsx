@@ -4,8 +4,6 @@ import grapesjs from 'grapesjs'
 import './PageBuilder.css'
 import dynamicConfig from './grapesjsConfig'
 
-
-
 function PageBuilder() {
     const [components, setComponents] = useState()
 
@@ -68,8 +66,8 @@ function PageBuilder() {
     }
 
 
-    const loadGrapesjs = async () => {
-        const editor = await grapesjs.init(dynamicConfig())
+    const loadGrapesjs = () => {
+        const editor = grapesjs.init(dynamicConfig())
         loadComponents(editor)
     }
 

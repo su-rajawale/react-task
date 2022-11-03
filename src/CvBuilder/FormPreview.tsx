@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { FunctionComponent, JSXElementConstructor } from 'react'
 import './CvBuilder.css'
 
 type AppProps = {
   formdata: Object
-}
+}& React.ComponentProps<FunctionComponent>
 
 function FormPreview({ formdata }: AppProps) {
   return (
