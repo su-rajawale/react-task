@@ -30,7 +30,7 @@ function App() {
             <Route path='/pagebuilder' element={<PageBuilder />} />
             <Route path='/invite' element={<Invite />} />
             <Route path='/users/:id' element={<User />} />
-            {/* <Route path='/forms' element={<FormBuilder />} /> */}
+            {/* <Route path='/forms' element={<FormIo />} /> */}
             <Route path='/cvbuilder' element={<CvBuilder />} />
             <Route path='/formbuilder' element={<SchemaBuilder />} />
             <Route path='/search' element={<Search />} />
