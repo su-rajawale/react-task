@@ -6,8 +6,9 @@ import { toast } from "react-toastify";
 import "./Users.css";
 import { useFormik } from "formik";
 import { userSchema } from "./schemas";
+import { editUserProps } from './types'
 
-function EditUser(props) {
+function EditUser(props: editUserProps) {
   const rowId = props.id;
   const closeModal = props.close;
 

@@ -47,12 +47,12 @@ function Navbar() {
                 Editor
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
                 to="/forms">
                 Forms
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
                 to="/cvbuilder">

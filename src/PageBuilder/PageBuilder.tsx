@@ -9,7 +9,7 @@ import dynamicConfig from './grapesjsConfig'
 function PageBuilder() {
     const [components, setComponents] = useState()
 
-    const loadComponents = (editor) => {
+    const loadComponents = (editor: any) => {
         editor.BlockManager.add('blocks', {
             content: {
                 tagName: 'div',
@@ -54,7 +54,7 @@ function PageBuilder() {
                     className: 'btn-show-json',
                     label: 'JSON',
                     context: 'show-json',
-                    command(editor) {
+                    command(editor: any) {
                         setComponents(editor.getComponents())
                         editor.Modal.setTitle('Components JSON')
                             .setContent(`<textarea style="width:100%; height: 250px;">

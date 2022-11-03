@@ -1,6 +1,9 @@
+import React from "react";
 import styles from "./styles.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { offerType } from "./types";
+import { listofferProps } from "./types"
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,53 +18,55 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import { Tooltip } from "@mui/material";
 
-const ListOffers = ({ offers, getOffers }) => {
-  const deleteOffer = async (id) => {
+const ListOffers = ({ offers, getOffers }: listofferProps) => {
+  const deleteOffer = async (id: number) => {
     await axios.delete(`http://localhost:5000/offers/${id}`);
     getOffers();
   };
 
-  const handleActivation = async (id) => {
+  const handleActivation = async (id: number) => {
     await axios.get("http://localhost:5000/offers/").then(async (res) => {
-      const data = res.data;
+      const data: offerType[] = res.data;
       const ofr = data.find((x) => x.id === id);
-      if (ofr.activated === true) {
-        const dact = { activated: false };
-        await axios.patch(`http://localhost:5000/offers/${id}`, dact);
-        getOffers();
-        toast.success("Offer Deactivated Successfully", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: 0,
-          theme: "light",
-        });
-      } else if (ofr.activated === false) {
-        const act = { activated: true };
-        await axios.patch(`http://localhost:5000/offers/${id}`, act);
-        getOffers();
-        toast.success("Offer Activated Successfully", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: 0,
-          theme: "light",
-        });
+      if(ofr) {
+        if (ofr.activated === true) {
+          const dact = { activated: false };
+          await axios.patch(`http://localhost:5000/offers/${id}`, dact);
+          getOffers();
+          toast.success("Offer Deactivated Successfully", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "light",
+          });
+        } else if (ofr.activated === false) {
+          const act = { activated: true };
+          await axios.patch(`http://localhost:5000/offers/${id}`, act);
+          getOffers();
+          toast.success("Offer Activated Successfully", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: 0,
+            theme: "light",
+          });
+        }
       }
     });
   };
 
-  const handleDownload = (id, file) => {
-    const pdfLink = `${file}`;
-    const type = pdfLink.split(";")[0].split("/")[1];
+  const handleDownload = (id: number, file: string) => {
+    const pdfLink: string = `${file}`;
+    const type: string = pdfLink.split(";")[0].split("/")[1];
     const anchorElement = document.createElement("a");
-    const fileName = `offer_image_${id}.${type}`;
+    const fileName: string = `offer_image_${id}.${type}`;
     anchorElement.href = pdfLink;
     anchorElement.download = fileName;
     anchorElement.click();
@@ -88,7 +93,7 @@ const ListOffers = ({ offers, getOffers }) => {
                 </TableHead>
                 <TableBody>
                   {offers.map(
-                    ({ title, updatedAt, id, activated, file }, index) => (
+                    ({ title, updatedAt, id, activated, file }: offerType, index: number) => (
                       <TableRow key={index}>
                         <TableCell>{`${index + 1}.`}</TableCell>
                         <TableCell>{title}</TableCell>

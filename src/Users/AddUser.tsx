@@ -6,6 +6,7 @@ import './Users.css'
 
 import { useFormik } from 'formik'
 import { userSchema } from './schemas'
+import { addUserProps } from './types';
 
 
 const userInitialValues = {
@@ -17,7 +18,7 @@ const userInitialValues = {
 }
 
 
-function AddUser(props) {
+function AddUser(props: addUserProps) {
     const closeModal = props.close
     const BASE_URL = 'http://localhost:5000/employees'
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./UBoard.css";
 import Column from "./Column";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 
 import Table from "@mui/material/Table";
@@ -13,7 +13,8 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import { TableBody, TableFooter } from "@mui/material";
+import { TableFooter } from "@mui/material";
+import { columnType, taskData } from './types'
 
 // const task = {id:1, heading:"Benton", content:"Chanay Sample", amount:"2500"}
 
@@ -104,7 +105,7 @@ const initialData = {
   columnOrder: ["column-1", "column-2", "column-3", "column-4", "column-5"],
 };
 
-const reorderColumnList = (sourceCol, startIndex, endIndex) => {
+const reorderColumnList = (sourceCol:columnType, startIndex:number, endIndex: number) => {
   const newTaskIds = Array.from(sourceCol.taskIds);
   const [removed] = newTaskIds.splice(startIndex, 1);
   newTaskIds.splice(endIndex, 0, removed);
@@ -128,7 +129,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 function UBoard() {
-  const [state, setState] = useState(initialData);
+  const [state, setState] = useState<taskData>(initialData);
   const [isKanban, setKanban] = useState(false);
 
   const changeView = () => {
@@ -139,7 +140,7 @@ function UBoard() {
     }
   };
 
-  const handleDragEnd = (result) => {
+  const handleDragEnd = (result: DropResult) => {
     const { destination, source } = result;
 
     // If user tries to drop in an unknown destination
@@ -153,9 +154,10 @@ function UBoard() {
       return;
     }
 
-    // If the user drops within the same column but in a different positoin
-    const sourceCol = state.columns[source.droppableId];
-    const destinationCol = state.columns[destination.droppableId];
+    // If the user drops within the same column but in a different position
+
+    const sourceCol:columnType = state.columns[source.droppableId];
+    const destinationCol:columnType = state.columns[destination.droppableId];
 
     if (sourceCol.id === destinationCol.id) {
       const newColumn = reorderColumnList(

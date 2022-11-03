@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import TextField from "@mui/material/TextField";
-import Select from "react-select";
+import Select, { SingleValue } from "react-select";
 
 import "./Search.css";
 
+interface countryType {
+  [key: string]: any
+}
+
 function Search() {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<AxiosError | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState<countryType[]>([]);
   const [q, setQ] = useState("");
   const [searchParam] = useState(["capital", "name", "numericCode"]);
-  const [filterParam, setFilterParam] = useState(["All"]);
+  const [filterParam, setFilterParam] = useState("All");
 
   useEffect(() => {
     axios
@@ -28,8 +32,8 @@ function Search() {
   
   const data = Object.values(countries);
 
-  function search(countries) {
-    return countries.filter((item) => {
+  function search(countries: any) {
+    return countries.filter((item: any) => {
       if (item.region == filterParam) {
         return searchParam.some((newItem) => {
           return (
@@ -79,7 +83,7 @@ function Search() {
                   { value: "Europe", label: "Europe" },
                   { value: "Oceania", label: "Oceania" },
                 ]}
-                onChange={(e) => {
+                onChange={(e: any) => {
                   setFilterParam(e.value);
                 }}
                 aria-label="Filter Countries By Region"
@@ -89,7 +93,7 @@ function Search() {
             </div>
           </div>
           <ul className="card-grid">
-            {search(data).map((item) => (
+            {search(data).map((item: any) => (
               <li key={item.alpha3Code}>
                 <article className="card">
                   <div className="card-image">
