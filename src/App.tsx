@@ -14,6 +14,7 @@ import CvBuilder from './CvBuilder/CvBuilder';
 import SchemaBuilder from './SchemaBuilder/SchemaBuilder';
 import Search from './Search/Search';
 import Offers from './Offers/Offers';
+import Mix from './Mix/Mix'
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
             <Route path='/formbuilder' element={<SchemaBuilder />} />
             <Route path='/search' element={<Search />} />
             <Route path='/offers' element={<Offers />} />
+            <Route path='/mix' element={<Mix />} />
           </Routes>
         </div>
       </main>
