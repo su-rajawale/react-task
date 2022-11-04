@@ -20,7 +20,7 @@ const Offers = () => {
   }, []);
 
   return (
-    <div className={styles.offers}>
+    <div className={`${styles.offers}`}>
       <div className={styles.create}>
         <CreateOffers getOffers={getOffers} />
       </div>
