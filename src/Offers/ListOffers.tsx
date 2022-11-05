@@ -33,7 +33,7 @@ const ListOffers = ({ offers, getOffers, ...rest }: listofferProps) => {
           const dact = { activated: false };
           await axios.patch(`http://localhost:5000/offers/${id}`, dact);
           getOffers();
-          toast.success("Offer Deactivated Successfully", {
+          toast.warn("Offer Deactivated Successfully", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
