@@ -15,6 +15,8 @@ import SchemaBuilder from './SchemaBuilder/SchemaBuilder';
 import Search from './Search/Search';
 import Offers from './Offers/Offers';
 import Mix from './Mix/Mix'
+import Uboard from './UBoard/UBoard'
+import Dash from './Dash/Dash';
 
 function App() {
 
@@ -37,6 +39,8 @@ function App() {
             <Route path='/search' element={<Search />} />
             <Route path='/offers' element={<Offers />} />
             <Route path='/mix' element={<Mix />} />
+            <Route path='/uboard' element={<Uboard />} />
+            <Route path='/dash' element={<Dash />} />
           </Routes>
         </div>
       </main>

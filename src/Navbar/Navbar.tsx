@@ -5,6 +5,18 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './Navbar.css'
 
+const links = [
+  { name: 'Home', link: '/dash' },
+  { name: 'Nested', link: '/nested' },
+  { name: 'Employees', link: '/employees' },
+  { name: 'Invite', link: '/invite' },
+  { name: 'Uboard', link: '/uboard' },
+  { name: 'Editor', link: '/pagebuilder' },
+  { name: 'CV_builder', link: '/cvbuilder' },
+  { name: 'Formbuilder', link: '/formbuilder' },
+  { name: 'Offers', link: '/offers' },
+  { name: 'Mix', link: '/mix' }
+]
 function Navbar() {
 
   const [show, setShow] = useState(false);
@@ -17,72 +29,14 @@ function Navbar() {
       <article>
         <nav className='nav1'>
           <ul>
-            <li>
-              <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                to="/nested">
-                Nested
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                to="/employees">
-                Employees
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                to="/invite">
-                Invite
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                to="/">
-                UBoard
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                to="/pagebuilder">
-                Editor
-              </NavLink>
-            </li>
-            {/* <li>
-              <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                to="/forms">
-                Forms
-              </NavLink>
-            </li> */}
-            <li>
-              <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                to="/cvbuilder">
-                CV_Builder
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                to="/formbuilder">
-                FormBuilder
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                to="/search">
-                Search
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                to="/offers">
-                Offers
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                to="/mix">
-                Mix
-              </NavLink>
-            </li>
+            {links.map(({ name, link }, index) => (
+              <li key={index}>
+                <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
+                  to={link}>
+                  {name}
+                </NavLink>
+              </li>
+            ))}
           </ul>
 
           <Offcanvas show={show} onHide={handleClose}>
@@ -91,66 +45,15 @@ function Navbar() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <ul>
-                <li>
-                  <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                    to="/nested">
-                    Nested
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                    to="/dragndrop">
-                    Drag N Drop
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                    to="/employees">
-                    Employees
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                    to="/">
-                    UBoard
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                    to="/pagebuilder">
-                    Editor
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                    to="/invite">
-                    Invite
-                  </NavLink>
-                </li>
-                 <li>
-                  <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                    to="/cvbuilder">
-                    CV_Builder
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                    to="/formbuilder">
-                    FormBuilder
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                    to="/search">
-                    Search
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
-                    to="/offers">
-                    Offers
-                  </NavLink>
-                </li>
+                {links.map(({ name, link }, index) => (
+                  <li key={index}>
+                    <NavLink className={({ isActive }) => isActive ? 'link-active' : undefined}
+                      to={link}>
+                      {name}
+                    </NavLink>
+                  </li>
+                ))
+                }
               </ul>
             </Offcanvas.Body>
           </Offcanvas>
