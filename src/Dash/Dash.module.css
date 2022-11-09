@@ -1,0 +1,105 @@
+#dash {
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.dashContent {
+    flex: 1;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 160px auto 1fr;
+    gap: 1rem;
+    grid-auto-rows: 160px;
+}
+
+.widget {
+    border-radius: 10px;
+}
+
+.widget_1 {
+    background-color: #1f2022;
+    padding: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    color: #fff;
+    grid-column: span 3;
+    justify-content: center;
+}
+
+.widget_1 span {
+    line-height: 1.5;
+    align-self: flex-end;
+}
+
+.widget_1 h2 {
+    font-weight: 500;
+}
+
+.widget_2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    padding: 1.5rem;
+    background-color: white;
+    box-shadow: rgb(0 0 0 / 10%) 0px 4px 12px;
+    grid-column: span 9;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.widget_2 p:first-of-type {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.widget2Card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin: 0 auto;
+}
+
+.widgetText {
+    grid-column: span 12;
+    padding: 1rem 0.5rem;
+}
+
+.widget_3 {
+    grid-column: span 8;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    background-color: white;
+    box-shadow: rgb(0 0 0 / 10%) 0px 4px 12px;
+}
+
+.widget3Card {
+    height: 25rem;
+}
+
+.widget_4 {
+    grid-column: span 4;
+}
+
+.widget4Card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.widget4Card svg {
+    color: white;
+    background-color: black;
+    outline: 1px solid black;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 300ms ease-in-out;
+}
+
+.widget4Card svg:hover {
+    outline-offset: 4px;
+}
+

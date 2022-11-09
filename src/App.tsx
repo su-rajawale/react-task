@@ -26,7 +26,7 @@ function App() {
         <Navbar />
         <div id='content'>
           <Routes>
-            <Route path='/' element={<UBoard />} />
+            <Route path='/' element={<Dash />} />
             <Route path='*' element={<NotFound />} />
             <Route path='/employees' element={<Users />} />
             <Route path='/nested' element={<Nested />} />
@@ -40,7 +40,6 @@ function App() {
             <Route path='/offers' element={<Offers />} />
             <Route path='/mix' element={<Mix />} />
             <Route path='/uboard' element={<Uboard />} />
-            <Route path='/dash' element={<Dash />} />
           </Routes>
         </div>
       </main>
