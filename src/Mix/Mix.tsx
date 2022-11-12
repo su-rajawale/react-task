@@ -1,76 +1,152 @@
-import React, { useEffect, useState } from 'react'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import { data } from './data'
+import React, { useEffect, useState } from "react";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import { data } from "./data";
+import { styled } from "@mui/material/styles";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+  Grid,
+  InputAdornment,
+} from "@mui/material";
+import styles from "./Mix.module.css";
+import { FaSearch } from "react-icons/fa";
+import zIndex from "@mui/material/styles/zIndex";
 
 type Data = {
-    name: string
-    username: string
-    email: string
-    website: string
-    id: number
-}[]
+  name: string;
+  username: string;
+  email: string;
+  website: string;
+  id: number;
+}[];
+
+const SearchTextField = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "grey",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "grey",
+  },
+  "& .MuiOutlinedInput-input": {
+    marginLeft: "0.5rem",
+  },
+  "& .MuiOutlinedInput-root": {
+    background: "white",
+    borderWidth: "1px",
+    "& fieldset": {
+      borderColor: "rgba(76, 78, 100, 0.22)",
+    },
+    "&:hover fieldset": {
+      borderColor: "rgba(76, 78, 100, 0.5)",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "rgb(116 116 255)",
+    },
+  },
+});
 
 const Mix = () => {
-    const [query, setQuery] = useState('')
-    const [filtered, setFiltered] = useState<Data>(data)
+  const [query, setQuery] = useState("");
+  const [filtered, setFiltered] = useState<Data>(data);
 
-    function filter() {
-        const x = data.filter((entry) => Object.values(entry).some((val) => typeof val === 'string' && val.toLowerCase().includes(query.toLowerCase())))
-        setFiltered(x)
-        console.log('filter ran')
-    }
+  function filter() {
+    const x = data.filter((entry) =>
+      Object.values(entry).some(
+        (val) =>
+          typeof val === "string" &&
+          val.toLowerCase().includes(query.toLowerCase())
+      )
+    );
+    setFiltered(x);
+  }
 
-    useEffect(() => {
-        filter()
-    }, [query])
+  useEffect(() => {
+    filter();
+  }, [query]);
 
-    return (
-        <div style={{ padding: 24 }}>
-            <Box
-                component="form"
-                noValidate
-            >
-                <TextField label="Search" variant="outlined" onChange={(e) => setQuery(e.target.value)} />
-            </Box>
-            <TableContainer>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Username</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Website</TableCell>
-                        </TableRow>
-                    </TableHead>
+  return (
+    <div style={{ padding: 24 }}>
+      <Box
+        p="6rem 1rem"
+        className={styles.headerBg}
+        sx={{
+          backgroundSize: "cover",
+          borderRadius: "10px",
+          marginBottom: "1rem",
+        }}
+      >
+        <Box
+          component="form"
+          noValidate
+          maxWidth="30rem"
+          mx="auto"
+          display="flex"
+          flexDirection="column"
+          gap="0.6rem"
+          alignItems="center"
+        >
+          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+            Hello, How can we help?
+          </Typography>
+          <Typography variant="subtitle2" sx={{ marginBottom: "0.8rem" }}>
+            or choose help to quickly find the help you need
+          </Typography>
+          <SearchTextField
+            label=""
+            placeholder="Search"
+            fullWidth
+            hiddenLabel
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <FaSearch />
+                </InputAdornment>
+              ),
+            }}
+            onChange={(e)=> setQuery(e.target.value)}
+          />
+        </Box>
+      </Box>
+      <Box>
+        <Grid container spacing={2}>
+          {filtered.map(({ name, username, email, website }, index) => (
+            <Grid item xs={6} md={4} lg={3} key={index}>
+              <Card sx={{ maxWidth: 345 }}>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={`https://picsum.photos/seed/${username.trim()}/400/400`}
+                  alt="green iguana"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {username}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Hi i am {name}, i will be providing you with assistance to
+                    your queries, dont hesitate to ask me anything
+                  </Typography>
+                  <CardActions>
+                    <Button size="small" href={`mailto:${email}`}>
+                      Contact
+                    </Button>
+                    <Button size="small" href={website}>
+                      Website
+                    </Button>
+                  </CardActions>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </div>
+  );
+};
 
-                    <TableBody>
-                        {
-                            filtered.map(({ id, name, username, email, website }, index) => {
-                                return (
-
-                                    <TableRow key={index}>
-                                        <TableCell>{name}</TableCell>
-                                        <TableCell>{username}</TableCell>
-                                        <TableCell>{email}</TableCell>
-                                        <TableCell>{website}</TableCell>
-                                    </TableRow>
-                                )
-                            })
-                        }
-
-                    </TableBody>
-
-                </Table>
-            </TableContainer>
-        </div>
-    )
-}
-
-export default Mix
+export default Mix;

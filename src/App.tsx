@@ -15,15 +15,21 @@ import SchemaBuilder from './SchemaBuilder/SchemaBuilder';
 import Search from './Search/Search';
 import Offers from './Offers/Offers';
 import Mix from './Mix/Mix'
-import Uboard from './UBoard/UBoard'
 import Dash from './Dash/Dash';
+import Sidenav from './Sidenav/Sidenav';
+import Faq from './Faq/Faq';
 
 function App() {
 
   return (
     <div>
       <main id='app'>
-        <Navbar />
+        <div id="sidenav">
+          <Sidenav />
+        </div>
+        <div id='navbar'>
+          <Navbar />
+        </div>
         <div id='content'>
           <Routes>
             <Route path='/' element={<Dash />} />
@@ -39,7 +45,8 @@ function App() {
             <Route path='/search' element={<Search />} />
             <Route path='/offers' element={<Offers />} />
             <Route path='/mix' element={<Mix />} />
-            <Route path='/uboard' element={<Uboard />} />
+            <Route path='/uboard' element={<UBoard />} />
+            <Route path='/faq' element={<Faq />} />
           </Routes>
         </div>
       </main>

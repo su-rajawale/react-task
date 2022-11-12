@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-top: 10rem;
+    margin-top: 3em;
 }
 
 .notfound {
@@ -15,4 +15,11 @@
 .notfound h1 {
     font-weight: normal;
     font-size: 8rem;
+}
+
+.notFoundBg {
+    background-image: url('./assets/notFound.png');
+    background-size: cover;
+    width: 30vw;
+    aspect-ratio: 1/1;
 }

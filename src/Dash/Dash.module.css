@@ -1,105 +1,129 @@
 #dash {
-    display: flex;
-    width: 90%;
-    margin: 0 auto;
+  display: flex;
+  /* width: 90%;
+    margin: 0 auto; */
+  --widgetShadow: rgb(0 0 0 / 10%) 0px 4px 12px;
+  --widgetAccent: #877cf4;
 }
 
 .dashContent {
-    flex: 1;
-    padding: 2rem;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: 160px auto 1fr;
-    gap: 1rem;
-    grid-auto-rows: 160px;
+  flex: 1;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 140px auto 1fr;
+  gap: 1rem;
+  grid-auto-rows: 140px;
 }
 
 .widget {
-    border-radius: 10px;
+  border-radius: 10px;
 }
 
 .widget_1 {
-    background-color: #1f2022;
-    padding: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    color: #fff;
-    grid-column: span 3;
-    justify-content: center;
+  background-color: var(--widgetAccent);
+  box-shadow: var(--widgetShadow);
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  color: #fff;
+  grid-column: span 2;
+  justify-content: center;
 }
 
 .widget_1 span {
-    line-height: 1.5;
-    align-self: flex-end;
+  line-height: 1.5;
+  align-self: flex-end;
 }
 
 .widget_1 h2 {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .widget_2 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    padding: 1.5rem;
-    background-color: white;
-    box-shadow: rgb(0 0 0 / 10%) 0px 4px 12px;
-    grid-column: span 9;
-    align-items: center;
-    justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  padding: 1rem;
+  background-color: white;
+  box-shadow: var(--widgetShadow);
+  grid-column: span 7;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+  cursor: pointer;
+}
+
+.widget2after {
+  position: absolute;
+  background: #0000ff33;
+  display: block;
+  height: 100%;
+  width: 33%;
+  left: 0%;
+  border-radius: 10px;
+  transition: 300ms ease-in-out;
 }
 
 .widget_2 p:first-of-type {
-    font-size: 1.8rem;
-    font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
 .widget2Card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0 auto;
 }
 
 .widgetText {
-    grid-column: span 12;
-    padding: 1rem 0.5rem;
+  grid-column: span 12;
+  padding: 0.5rem;
 }
 
 .widget_3 {
-    grid-column: span 8;
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-    background-color: white;
-    box-shadow: rgb(0 0 0 / 10%) 0px 4px 12px;
+  grid-column: span 6;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  background-color: white;
+  box-shadow: var(--widgetShadow);
 }
 
 .widget3Card {
-    height: 25rem;
+  height: 23rem;
 }
 
 .widget_4 {
-    grid-column: span 4;
+  grid-column: span 3;
 }
 
 .widget4Card {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem;
 }
 
-.widget4Card svg {
+.contact svg {
+  color: white;
+  background-color: var(--widgetAccent);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 300ms ease-in-out;
+}
+
+.contact {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  border-radius: 10px;
+  border: 1px solid lightgrey;
+}
+
+.contact:hover {
+    background-color: var(--widgetAccent);
     color: white;
-    background-color: black;
-    outline: 1px solid black;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: 300ms ease-in-out;
 }
-
-.widget4Card svg:hover {
-    outline-offset: 4px;
-}
-
