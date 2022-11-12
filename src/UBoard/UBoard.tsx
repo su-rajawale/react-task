@@ -206,7 +206,10 @@ function UBoard() {
 
   return (
     <>
-      <div className="board-view">
+      
+      {!isKanban ? (
+        <div>
+        <div className="board-view">
         <span style={{ marginRight: "20px" }}>
           <strong>Change View</strong>
         </span>
@@ -214,7 +217,6 @@ function UBoard() {
           {isKanban ? <DashboardIcon /> : <FormatListBulletedIcon />}
         </Button>
       </div>
-      {!isKanban ? (
         <section id="uboard2">
           <TableContainer>
             <Table>
@@ -245,7 +247,17 @@ function UBoard() {
             </Table>
           </TableContainer>
         </section>
+        </div>
       ) : (
+        <div>
+        <div className="board-view">
+        <span style={{ marginRight: "20px" }}>
+          <strong>Change View</strong>
+        </span>
+        <Button variant="contained" color="primary" onClick={changeView}>
+          {isKanban ? <DashboardIcon /> : <FormatListBulletedIcon />}
+        </Button>
+      </div>
         <section id="uboard">
           <DragDropContext onDragEnd={handleDragEnd}>
             <article className="uboard-board">
@@ -259,6 +271,7 @@ function UBoard() {
             </article>
           </DragDropContext>
         </section>
+        </div>
       )}
     </>
   );

@@ -1,14 +1,84 @@
 #app {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  display: grid;
+  max-height: 100vh;
+  grid-template-columns: repeat(14, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+}
+
+#navbar {
+  grid-column: span 11;
+  grid-row: span 1;
+}
+
+#sidenav {
+  grid-column: span 3;
+  grid-row: span 12;
+  background-color: #f9f9fb;
+  position: relative;
+  padding: 1rem;
 }
 
 #content {
-    flex: 1;
-    overflow-y: auto;
-    position: relative;
-    width: 100vw;
-    overflow: hidden;
-    background-color: #f4f5fe;
+  grid-column: span 11;
+  grid-row: span 11;
+  overflow-y: auto;
+}
+
+#content::-webkit-scrollbar {
+  width: 10px;
+}
+
+#content::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.1);
+}
+#content::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+}
+#content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+#content::-webkit-scrollbar-thumb:active {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.showHideSide {
+  position: fixed !important;
+  left: -50%;
+  animation: inout 500ms ease-in-out forwards;
+}
+
+@keyframes inout {
+  0% {
+    left: 0;
+  }
+  100%{
+    left: -50%;
+  }
+}
+
+.closeSide {
+  background: white;
+  grid-column: span 1;
+  grid-row: span 12;
+}
+
+.closeSide svg {
+  color: white;
+  stroke-width: 3;
+}
+
+.navFull {
+  grid-column: span 14 !important;
+}
+
+.contentFull {
+  grid-column: span 14 !important;
+}
+
+#content > div {
+  margin: 1rem;
+  box-shadow: rgb(76 78 100 / 22%) 0px 2px 10px 0px;
+  border-radius: 10px;
 }

@@ -52,8 +52,6 @@ function Invite() {
             value: `${element.id}`
           })
         });
-
-        console.log(tempArray)
         setMyoptions(tempArray)
       })
   }

@@ -1,6 +1,5 @@
-import { Box, Typography } from '@mui/material'
-import React from 'react'
-import Sidenav from '../Sidenav/Sidenav'
+import { Typography } from '@mui/material'
+import React, { useState } from 'react'
 import styles from './Dash.module.css'
 import LineChart from './charts/LineChart'
 import Contact from './Contact'
@@ -49,28 +48,31 @@ const widgets = [
 ]
 
 const Dash = () => {
+
+  const [overlayPosition, setOverlayPosition]= useState({left: '0%'})
+
   return (
     <div id={styles.dash}>
-      <Sidenav />
       <div className={styles.dashContent}>
         <div className={`${styles.widget} ${styles.widget_1}`}>
           <Typography variant='h1' sx={{ fontSize: '5rem' }}>13</Typography>
           <Typography variant='overline' sx={{ fontSize: '1rem' }}>Sales</Typography>
         </div>
 
-        <div className={`${styles.widget} ${styles.widget_2}`}>
-          <div className={styles.widget2Card}>
+        <div className={`${styles.widget} ${styles.widget_2}`} >
+          <div className={styles.widget2Card} onClick={()=> setOverlayPosition({left: '0%'})}>
             <Typography>$172</Typography>
             <Typography sx={{ textTransform: 'uppercase' }}>todays sales</Typography>
           </div>
-          <div className={styles.widget2Card}>
+          <div className={styles.widget2Card} onClick={()=> setOverlayPosition({left: '33%'})}>
             <Typography>$1,489</Typography>
             <Typography sx={{ textTransform: 'uppercase' }}>last 7 days</Typography>
           </div>
-          <div className={styles.widget2Card}>
+          <div className={styles.widget2Card} onClick={()=> setOverlayPosition({left: '67%'})}>
             <Typography>18%</Typography>
             <Typography sx={{ textTransform: 'uppercase' }}>conversion</Typography>
           </div>
+          <div className={styles.widget2after} style={overlayPosition}></div>
         </div>
         <div className={styles.widgetText}>
           <Typography sx={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Earnings and Visitors</Typography>
