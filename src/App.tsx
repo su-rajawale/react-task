@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Nested from './Nested/Nested'
 import Users from './Users/Users';
 import User from './Users/User';
 import NotFound from './NotFound/NotFound';
@@ -18,36 +17,42 @@ import Mix from './Mix/Mix'
 import Dash from './Dash/Dash';
 import Sidenav from './Sidenav/Sidenav';
 import Faq from './Faq/Faq';
+import { FcNext } from 'react-icons/fc'
 
 function App() {
+  const [isSideNav, setIsSideNav] = useState(false);
 
   return (
     <div>
-      <main id='app'>
-        <div id="sidenav">
+      <main id={!isSideNav ? 'app' : 'sideHide'}>
+        <div id={!isSideNav ? "sidenav" : "sideNavHidden"}>
           <Sidenav />
         </div>
-        <div id='navbar'>
-          <Navbar />
+        <div className='toolbar'>
+          <div className={!isSideNav ? 'closeBtn' : 'openBtn'} onClick={() => { setIsSideNav((prev) => !prev) }}><FcNext /></div>
         </div>
         <div id='content'>
-          <Routes>
-            <Route path='/' element={<Dash />} />
-            <Route path='*' element={<NotFound />} />
-            <Route path='/employees' element={<Users />} />
-            <Route path='/nested' element={<Nested />} />
-            <Route path='/pagebuilder' element={<PageBuilder />} />
-            <Route path='/invite' element={<Invite />} />
-            <Route path='/users/:id' element={<User />} />
-            {/* <Route path='/forms' element={<FormIo />} /> */}
-            <Route path='/cvbuilder' element={<CvBuilder />} />
-            <Route path='/formbuilder' element={<SchemaBuilder />} />
-            <Route path='/search' element={<Search />} />
-            <Route path='/offers' element={<Offers />} />
-            <Route path='/mix' element={<Mix />} />
-            <Route path='/uboard' element={<UBoard />} />
-            <Route path='/faq' element={<Faq />} />
-          </Routes>
+          <div id='navbar'>
+            <Navbar />
+          </div>
+          <div id="page">
+            <Routes>
+              <Route path='/' element={<Dash />} />
+              <Route path='*' element={<NotFound />} />
+              <Route path='/employees' element={<Users />} />
+              <Route path='/pagebuilder' element={<PageBuilder />} />
+              <Route path='/invite' element={<Invite />} />
+              <Route path='/users/:id' element={<User />} />
+              {/* <Route path='/forms' element={<FormIo />} /> */}
+              <Route path='/cvbuilder' element={<CvBuilder />} />
+              <Route path='/formbuilder' element={<SchemaBuilder />} />
+              <Route path='/search' element={<Search />} />
+              <Route path='/offers' element={<Offers />} />
+              <Route path='/mix' element={<Mix />} />
+              <Route path='/uboard' element={<UBoard />} />
+              <Route path='/faq' element={<Faq />} />
+            </Routes>
+          </div>
         </div>
       </main>
     </div>

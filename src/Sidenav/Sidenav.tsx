@@ -33,7 +33,6 @@ const otherLinks = [
     link: "/formbuilder",
     icon: <FormatLineSpacingRoundedIcon />,
   },
-  { name: "Nested", link: "/nested", icon: <MessageRoundedIcon /> },
   {
     name: "CV_builder",
     link: "/cvbuilder",
@@ -130,7 +129,7 @@ function Sidenav() {
                   if (!isMore) setIsMore(true);
                 }}
               >
-                more
+                {!isMore ? ("more") : ("less")}
               </Button>
             </ul>
           </nav>

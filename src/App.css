@@ -1,84 +1,73 @@
-#app {
-  display: grid;
-  max-height: 100vh;
-  grid-template-columns: repeat(14, 1fr);
-  grid-template-rows: repeat(12, 1fr);
-}
+/* scrollbars */
 
-#navbar {
-  grid-column: span 11;
-  grid-row: span 1;
-}
-
-#sidenav {
-  grid-column: span 3;
-  grid-row: span 12;
-  background-color: #f9f9fb;
-  position: relative;
-  padding: 1rem;
-}
-
-#content {
-  grid-column: span 11;
-  grid-row: span 11;
-  overflow-y: auto;
-}
-
-#content::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
-
-#content::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.1);
 }
-#content::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.2);
 }
-#content::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.4);
 }
-#content::-webkit-scrollbar-thumb:active {
+::-webkit-scrollbar-thumb:active {
   background: rgba(0, 0, 0, 0.9);
 }
 
-.showHideSide {
-  position: fixed !important;
-  left: -50%;
-  animation: inout 500ms ease-in-out forwards;
+#app {
+  display: grid;
+  max-height: 100vh;
+  grid-template-columns: 300px auto 1fr;
+  transition: 400ms ease-in-out;
 }
 
-@keyframes inout {
-  0% {
-    left: 0;
-  }
-  100%{
-    left: -50%;
-  }
+#sideHide {
+  display: grid;
+  max-height: 100vh;
+  grid-template-columns: 0px auto 1fr;
+  transition: 400ms ease-in-out;
 }
 
-.closeSide {
-  background: white;
-  grid-column: span 1;
-  grid-row: span 12;
+#sidenav {
+  background-color: #f9f9fb;
+  padding: 1rem;
 }
 
-.closeSide svg {
-  color: white;
-  stroke-width: 3;
+#sideNavHidden {
+  background-color: #f9f9fb;
+  overflow: hidden;
 }
 
-.navFull {
-  grid-column: span 14 !important;
+#content {
+  max-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
-.contentFull {
-  grid-column: span 14 !important;
-}
-
-#content > div {
+#page {
   margin: 1rem;
   box-shadow: rgb(76 78 100 / 22%) 0px 2px 10px 0px;
   border-radius: 10px;
+  overflow-y: auto;
+}
+
+.closeBtn {
+  margin-top: 1.5rem;
+  padding-inline: 0.5rem;
+  cursor: pointer;
+  transition: 400ms ease-in-out;
+  transform: rotate(180deg)
+}
+
+.openBtn {
+  margin-top: 1.5rem;
+  padding-inline: 0.5rem;
+  cursor: pointer;
+  transform: rotate(0);
+  transition: 400ms ease-in-out;
 }
