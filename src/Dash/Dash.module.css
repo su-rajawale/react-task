@@ -12,7 +12,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: 140px auto 1fr;
-  gap: 1rem;
+  gap: 1.5rem;
   grid-auto-rows: 140px;
 }
 
@@ -47,7 +47,7 @@
   padding: 1rem;
   background-color: white;
   box-shadow: var(--widgetShadow);
-  grid-column: span 7;
+  grid-column: span 6;
   align-items: center;
   justify-content: space-around;
   position: relative;
@@ -78,12 +78,12 @@
 }
 
 .widgetText {
-  grid-column: span 12;
+  grid-column: span 8;
   padding: 0.5rem;
 }
 
 .widget_3 {
-  grid-column: span 6;
+  grid-column: span 5;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
@@ -92,7 +92,7 @@
 }
 
 .widget3Card {
-  height: 23rem;
+  height: 20rem;
 }
 
 .widget_4 {
@@ -103,7 +103,47 @@
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  padding: 1rem;
+}
+
+.widget_5 {
+  grid-column: span 4;
+}
+
+.widget5Card {
+  padding: 1.5rem;
+  color: rgba(76, 78, 100, 0.87);
+  border-radius: 10px;
+  box-shadow: var(--widgetShadow);
+}
+
+.socialVisit {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.socialHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.socialHeading svg {
+  cursor: pointer;
+}
+
+.socialList ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  gap: 1rem;
+}
+
+.socialList ul li {
+  display: flex;
+  gap: 1.5rem;
 }
 
 .contact svg {
@@ -127,3 +167,4 @@
     background-color: var(--widgetAccent);
     color: white;
 }
+
