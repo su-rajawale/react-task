@@ -105,7 +105,7 @@ const initialData = {
   columnOrder: ["column-1", "column-2", "column-3", "column-4", "column-5"],
 };
 
-const reorderColumnList = (sourceCol:columnType, startIndex:number, endIndex: number) => {
+const reorderColumnList = (sourceCol: columnType, startIndex: number, endIndex: number) => {
   const newTaskIds = Array.from(sourceCol.taskIds);
   const [removed] = newTaskIds.splice(startIndex, 1);
   newTaskIds.splice(endIndex, 0, removed);
@@ -156,8 +156,8 @@ function UBoard() {
 
     // If the user drops within the same column but in a different position
 
-    const sourceCol:columnType = state.columns[source.droppableId];
-    const destinationCol:columnType = state.columns[destination.droppableId];
+    const sourceCol: columnType = state.columns[source.droppableId];
+    const destinationCol: columnType = state.columns[destination.droppableId];
 
     if (sourceCol.id === destinationCol.id) {
       const newColumn = reorderColumnList(
@@ -206,71 +206,71 @@ function UBoard() {
 
   return (
     <>
-      
+
       {!isKanban ? (
         <div>
-        <div className="board-view">
-        <span style={{ marginRight: "20px" }}>
-          <strong>Change View</strong>
-        </span>
-        <Button variant="contained" color="primary" onClick={changeView}>
-          {isKanban ? <DashboardIcon /> : <FormatListBulletedIcon />}
-        </Button>
-      </div>
-        <section id="uboard2">
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>+</StyledTableCell>
-                  <StyledTableCell>Deal Name</StyledTableCell>
-                  <StyledTableCell>Ammout</StyledTableCell>
-                  <StyledTableCell>Stage</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <DragDropContext onDragEnd={handleDragEnd}>
+          <div className="board-view">
+            <span style={{ marginRight: "20px" }}>
+              <strong>Change View</strong>
+            </span>
+            <Button variant="contained" color="primary" onClick={changeView}>
+              {isKanban ? <DashboardIcon /> : <FormatListBulletedIcon />}
+            </Button>
+          </div>
+          <section id="uboard2">
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>+</StyledTableCell>
+                    <StyledTableCell>Deal Name</StyledTableCell>
+                    <StyledTableCell>Ammout</StyledTableCell>
+                    <StyledTableCell>Stage</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <DragDropContext onDragEnd={handleDragEnd}>
+                  {state.columnOrder.map((columnId) => {
+                    const column = state.columns[columnId];
+                    const tasks = column.taskIds.map(
+                      (taskId) => state.tasks[taskId]
+                    );
+                    return (
+                      <Tasks key={column.id} tasks={tasks} column={column} />
+                    );
+                  })}
+                </DragDropContext>
+                <TableFooter>
+                  <TableRow>
+                    <TableCell>Later</TableCell>
+                  </TableRow>
+                </TableFooter>
+              </Table>
+            </TableContainer>
+          </section>
+        </div>
+      ) : (
+        <div>
+          <div className="board-view">
+            <span style={{ marginRight: "20px" }}>
+              <strong>Change View</strong>
+            </span>
+            <Button variant="contained" color="primary" onClick={changeView}>
+              {isKanban ? <DashboardIcon /> : <FormatListBulletedIcon />}
+            </Button>
+          </div>
+          <section id="uboard">
+            <DragDropContext onDragEnd={handleDragEnd}>
+              <article className="uboard-board">
                 {state.columnOrder.map((columnId) => {
                   const column = state.columns[columnId];
                   const tasks = column.taskIds.map(
                     (taskId) => state.tasks[taskId]
                   );
-                  return (
-                    <Tasks key={column.id} tasks={tasks} column={column} />
-                  );
+                  return <Column key={column.id} column={column} tasks={tasks} />;
                 })}
-              </DragDropContext>
-              <TableFooter>
-                <TableRow>
-                    <TableCell>Later</TableCell>
-                </TableRow>
-              </TableFooter>
-            </Table>
-          </TableContainer>
-        </section>
-        </div>
-      ) : (
-        <div>
-        <div className="board-view">
-        <span style={{ marginRight: "20px" }}>
-          <strong>Change View</strong>
-        </span>
-        <Button variant="contained" color="primary" onClick={changeView}>
-          {isKanban ? <DashboardIcon /> : <FormatListBulletedIcon />}
-        </Button>
-      </div>
-        <section id="uboard">
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <article className="uboard-board">
-              {state.columnOrder.map((columnId) => {
-                const column = state.columns[columnId];
-                const tasks = column.taskIds.map(
-                  (taskId) => state.tasks[taskId]
-                );
-                return <Column key={column.id} column={column} tasks={tasks} />;
-              })}
-            </article>
-          </DragDropContext>
-        </section>
+              </article>
+            </DragDropContext>
+          </section>
         </div>
       )}
     </>
