@@ -1,39 +1,46 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useMemo } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import './Users.css'
-import { AiOutlineDrag } from 'react-icons/ai'
-import { MdOutlineDragHandle } from 'react-icons/md'
 import 'react-select-search/style.css'
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
 import AddUser from './AddUser'
 import EditUser from './EditUser'
 
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Tooltip from '@mui/material/Tooltip'
 
-import Fab from '@mui/material/Fab';
+import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import AddIcon from '@mui/icons-material/Add'
 import { employeesType } from './types'
+import AddIcon from '@mui/icons-material/Add'
+import Fab from '@mui/material/Fab';
+
+
+import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { Box } from '@mui/material'
+import { gridClasses } from '@mui/system'
+
+// import { AiOutlineDrag } from 'react-icons/ai'
+// import { MdOutlineDragHandle } from 'react-icons/md'
+// import Table from '@mui/material/Table'
+// import TableBody from '@mui/material/TableBody'
+// import TableCell from '@mui/material/TableCell'
+// import TableContainer from '@mui/material/TableContainer'
+// import TableHead from '@mui/material/TableHead'
+// import TableRow from '@mui/material/TableRow'
+// import { Button } from '@mui/material'
 
 function Users() {
     const [users, setUsers] = useState<employeesType[]>([])
-    const [fetchError, setFetchError] = useState('')
+    // const [fetchError, setFetchError] = useState('')
     const BASE_URL = 'http://localhost:5000/employees/'
 
     const [rowId, updateRowId] = useState<number | null>()
     const addUserModal = useRef<HTMLDialogElement>(null)
     const editUserModal = useRef<HTMLDialogElement>(null)
+    const [pageSize, setPageSize] = useState<number>(10)
 
     const getUsers = async () => {
         await axios.get(BASE_URL)
@@ -41,7 +48,7 @@ function Users() {
                 setUsers(res.data)
             })
             .catch(function (err) {
-                setFetchError('fetch-error')
+                // setFetchError('fetch-error')
             })
     }
 
@@ -55,18 +62,6 @@ function Users() {
             pauseOnHover: false,
             draggable: true,
         })
-    }
-
-    const handleOnDragEnd = (result: DropResult) => {
-        const { destination, source } = result;
-
-        if (!destination) return
-        const items = Array.from(users)
-        const [recordedItem] = items.splice(source.index, 1)
-        items.splice(destination.index, 0, recordedItem)
-
-        // update users value each time drag ends
-        setUsers(items)
     }
 
     // opening and closing of moadals
@@ -102,8 +97,46 @@ function Users() {
         getUsers()
     }, [])
 
+    const colDef: GridColDef[] = useMemo(()=> [
+        {
+            field: 'id', headerName: 'No.', maxWidth: 40, renderCell: (params) => {
+                return (<><span>{params.row.id}</span></>)
+            }
+        },
+        { field: 'name', headerName: 'Name', flex: 1, editable:true },
+        { field: 'username', headerName: 'Username', flex: 0.5 },
+        { field: 'email', headerName: 'Email', flex: 1 },
+        { field: 'phone', headerName: 'Phone', flex: 0.5 },
+        { field: 'website', headerName: 'Website', flex: 0.5 },
+        {
+            field: 'action', headerName: 'Action', flex: 1, renderCell: (params) => {
+                return (
+                    <div className='action'>
+                        <Tooltip arrow title='View Employee'>
+                            <Link to={`/users/${params.row.id}`}>
+                                <IconButton color='secondary'>
+                                    <VisibilityIcon />
+                                </IconButton>
+                            </Link>
+                        </Tooltip>
+                        <Tooltip arrow title='Edit Employee'>
+                            <IconButton color='primary' onClick={() => { updateRowId(params.row.id); openEditUserModal() }}>
+                                <EditIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip arrow title='Delete Employee'>
+                            <IconButton color='error' onClick={() => { deleteUser(params.row.id) }}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </Tooltip>
+                    </div>
+                )
+            }
+        }
+    ], [users])
+
     return (
-        <div className='users'>
+        <Box p='24px' >
             <div className='users-heading'>
                 <span><h1>Employees</h1></span>
                 <span>
@@ -114,6 +147,18 @@ function Users() {
                     </Tooltip>
                 </span>
             </div>
+            <DataGrid
+                rows={users}
+                columns={colDef}
+                autoHeight
+                pageSize={pageSize}
+                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                rowsPerPageOptions={[10, 20, 50, 100]}
+                getRowSpacing={(params) => ({
+                    top: params.isFirstVisible ? 0 : 5,
+                    bottom: params.isLastVisible ? 0 : 5
+                })}
+            />
 
             <dialog id='add-user-modal' ref={addUserModal}>
                 <AddUser close={closeAddUserModal} />
@@ -122,71 +167,8 @@ function Users() {
             <dialog id='edit-user-modal' ref={editUserModal}>
                 {rowId ? <EditUser id={rowId} close={closeEditUserModal} /> : null}
             </dialog>
-
-            <TableContainer>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell><AiOutlineDrag /></TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Username</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Phone</TableCell>
-                            <TableCell>Website</TableCell>
-                            <TableCell>Action</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <DragDropContext onDragEnd={handleOnDragEnd}>
-                        <Droppable droppableId='users'>
-                            {(provided) => (
-                                <TableBody className={fetchError} {...provided.droppableProps} ref={provided.innerRef}>
-                                    {
-                                        users.map(({ id, name, username, email, phone, website }, index) => {
-                                            return (
-                                                <Draggable key={id} draggableId={`${id}`} index={index}>
-                                                    {(provided) => (
-                                                        <TableRow {...provided.draggableProps} ref={provided.innerRef}>
-                                                            <TableCell {...provided.dragHandleProps} ref={provided.innerRef}><MdOutlineDragHandle /></TableCell>
-                                                            {/* <th scope='row'>{index + 1}</th> */}
-                                                            <TableCell>{name}</TableCell>
-                                                            <TableCell>{username}</TableCell>
-                                                            <TableCell>{email}</TableCell>
-                                                            <TableCell>{phone}</TableCell>
-                                                            <TableCell>{website}</TableCell>
-                                                            <TableCell className='action'>
-                                                                <Tooltip arrow title='View Employee'>
-                                                                    <Link to={`/users/${id}`}>
-                                                                        <IconButton color='secondary'>
-                                                                            <VisibilityIcon />
-                                                                        </IconButton>
-                                                                    </Link>
-                                                                </Tooltip>
-                                                                <Tooltip arrow title='Edit Employee'>
-                                                                    <IconButton color='primary' onClick={() => { updateRowId(id); openEditUserModal() }}>
-                                                                        <EditIcon />
-                                                                    </IconButton>
-                                                                </Tooltip>
-                                                                <Tooltip arrow title='Delete Employee'>
-                                                                    <IconButton color='error' onClick={() => { deleteUser(id) }}>
-                                                                        <DeleteIcon />
-                                                                    </IconButton>
-                                                                </Tooltip>
-                                                            </TableCell>
-                                                        </TableRow>
-                                                    )}
-                                                </Draggable>
-                                            )
-                                        })
-                                    }
-                                    {provided.placeholder}
-                                </TableBody>
-                            )}
-                        </Droppable>
-                    </DragDropContext>
-                </Table>
-            </TableContainer>
             <ToastContainer />
-        </div>
+        </Box>
     )
 }
 
