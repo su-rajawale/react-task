@@ -10,6 +10,7 @@
     "@formio/react": "^5.2.4-rc.1",
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.7",
+    "@mui/x-data-grid": "^5.17.11",
     "@nivo/bar": "^0.80.0",
     "@nivo/core": "^0.80.0",
     "@nivo/line": "^0.80.0",

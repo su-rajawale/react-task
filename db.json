@@ -1,7 +1,7 @@
 {
   "employees": [
     {
-      "name": "Gaurav g",
+      "name": "Gaurav soy",
       "username": "gaurav new",
       "email": "sue@su.com",
       "phone": "029302938329",
@@ -49,20 +49,12 @@
       "id": 6
     },
     {
-      "name": "galaxy",
-      "username": "nexusal",
-      "email": "video.video@video.video",
-      "phone": 98989898989,
-      "website": "website.website",
-      "id": 7
-    },
-    {
       "name": "Leebanila",
       "username": "leevassishichia",
       "email": "choice.cup@su.cu",
       "phone": 821903102981,
       "website": "dropped.drop",
-      "id": 8
+      "id": 7
     }
   ],
   "users": [
