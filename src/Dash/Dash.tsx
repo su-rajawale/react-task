@@ -104,7 +104,7 @@ const Dash = () => {
                       <Typography fontWeight='bold'>Facebook</Typography>
                       <Typography fontSize='0.7rem'>Social Media</Typography>
                     </Box>
-                    <Typography>1,238</Typography>
+                    <Typography fontSize='0.9rem' fontWeight='bold'>1,238</Typography>
                     <Chip size='small' label='+12%' color='success' />
                   </li>
                   <li>
@@ -113,7 +113,7 @@ const Dash = () => {
                       <Typography fontWeight='bold'>Twitter</Typography>
                       <Typography fontSize='0.7rem'>Social Media</Typography>
                     </Box>
-                    <Typography>1,238</Typography>
+                    <Typography fontSize='0.9rem' fontWeight='bold'>599</Typography>
                     <Chip size='small' label='+12%' color='success' />
                   </li>
                   <li>
@@ -122,8 +122,8 @@ const Dash = () => {
                       <Typography fontWeight='bold'>Dribbble</Typography>
                       <Typography fontSize='0.7rem'>Community</Typography>
                     </Box>
-                    <Typography>1,238</Typography>
-                    <Chip size='small' label='+12%' color='success' />
+                    <Typography fontSize='0.9rem' fontWeight='bold'>63</Typography>
+                    <Chip size='small' label='-18%' color='error' />
                   </li>
                   <li>
                     <Box><SocialIcon style={{ width: '38px', height: '38px' }} url="https://linkedin.com" /></Box>
@@ -131,7 +131,7 @@ const Dash = () => {
                       <Typography fontWeight='bold'>Linkedin</Typography>
                       <Typography fontSize='0.7rem'>Social Media</Typography>
                     </Box>
-                    <Typography>1,238</Typography>
+                    <Typography fontSize='0.9rem' fontWeight='bold'>1,110</Typography>
                     <Chip size='small' label='+12%' color='success' />
                   </li>
                 </ul>
