@@ -28,11 +28,11 @@ function App() {
         <div id={!isSideNav ? "sidenav" : "sideNavHidden"}>
           <Sidenav />
         </div>
-        <div className='toolbar'>
-          <div className={!isSideNav ? 'closeBtn' : 'openBtn'} onClick={() => { setIsSideNav((prev) => !prev) }}><FcNext /></div>
-        </div>
         <div id='content'>
           <div id='navbar'>
+            <div className='toolbar'>
+              <div className={!isSideNav ? 'closeBtn' : 'openBtn'} onClick={() => { setIsSideNav((prev) => !prev) }}><FcNext /></div>
+            </div>
             <Navbar />
           </div>
           <div id="page">

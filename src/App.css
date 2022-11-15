@@ -22,14 +22,14 @@
 #app {
   display: grid;
   max-height: 100vh;
-  grid-template-columns: 300px auto 1fr;
+  grid-template-columns: 300px 1fr;
   transition: 400ms ease-in-out;
 }
 
 #sideHide {
   display: grid;
   max-height: 100vh;
-  grid-template-columns: 0px auto 1fr;
+  grid-template-columns: 0px 1fr;
   transition: 400ms ease-in-out;
 }
 
@@ -41,6 +41,11 @@
 #sideNavHidden {
   background-color: #f9f9fb;
   overflow: hidden;
+}
+
+#navbar {
+  display: flex;
+  align-items: center;
 }
 
 #content {
@@ -57,16 +62,14 @@
 }
 
 .closeBtn {
-  margin-top: 1.5rem;
-  padding-inline: 0.5rem;
+  padding: 1rem;
   cursor: pointer;
   transition: 400ms ease-in-out;
   transform: rotate(180deg)
 }
 
 .openBtn {
-  margin-top: 1.5rem;
-  padding-inline: 0.5rem;
+  padding: 1rem;
   cursor: pointer;
   transform: rotate(0);
   transition: 400ms ease-in-out;
