@@ -23,7 +23,7 @@ type Data = {
   email: string;
   website: string;
   id: number;
-}[];
+}[]
 
 const SearchTextField = styled(TextField)({
   "& label.Mui-focused": {
@@ -62,7 +62,8 @@ const Mix = () => {
           val.toLowerCase().includes(query.toLowerCase())
       )
     );
-    setFiltered(x);
+
+    if(filtered.length > 3 ) { setFiltered(x) }
   }
 
   useEffect(() => {
