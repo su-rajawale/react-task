@@ -1,0 +1,166 @@
+.quoteid {
+  background-color: red;
+}
+
+#rjsf_items {
+  width: 100%;
+}
+
+#rjsf_items input.MuiOutlinedInput-input,
+#rjsf_items .MuiSelect-outlined {
+  padding: 0.8rem 1rem;
+}
+
+#rjsf_items .MuiOutlinedInput-root {
+  border-radius: 10px;
+}
+
+#rjsf_items .MuiOutlinedInput-root:hover fieldset {
+  border-color: rgba(76, 78, 100, 0.32);
+}
+
+#rjsf_items .MuiInputLabel-root {
+  font-size: 0.94rem;
+  line-height: 1.1em;
+}
+
+
+#rjsf_items .Mui-selected {
+  background-color: rgba(38, 198, 249, 0.13);
+}
+
+#rjsf_items .MuiOutlinedInput-root {
+  color: rgba(76, 78, 100, 0.6);
+}
+
+#rjsf_items .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border: 2px solid rgb(38, 198, 249);
+}
+
+#rjsf_items .MuiIconButton-root[title="Add Item"] {
+  position: relative;
+  padding-right: 100px;
+}
+
+#rjsf_items .MuiIconButton-root[title="Add Item"] svg {
+  display: none;
+}
+
+#rjsf_items .MuiIconButton-root[title="Add Item"]::after {
+  content: 'Add Item';
+  position: absolute;
+  display: block;
+  width: max-content;
+  padding: 0.5rem 1rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  /* left: 50%;
+  transform: translateX(-50%); */
+  font-size: 0.8125rem;
+  background-color: rgb(38, 198, 249);
+  border-radius: 10px;
+  color: white;
+  box-shadow: rgb(76 78 100 / 42%) 0px 4px 8px -4px;
+  text-transform: uppercase;
+}
+#rjsf_items .MuiIconButton-root:hover[title="Add Item"]:hover{
+  background-color: none;
+}
+
+#rjsf_items .MuiIconButton-root[title="Remove"] svg {
+  display: none;
+}
+
+#rjsf_items .MuiIconButton-root[title="Remove"] {
+  position: relative;
+  padding: 10px 50px;
+}
+
+#rjsf_items .MuiIconButton-root[title="Remove"]::before {
+  content: 'x';
+  color: #000;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#rjsf_items .MuiIconButton-root[title="Move up"]{
+  display: none;
+}
+
+#rjsf_items .MuiIconButton-root[title="Move down"]{
+  display: none;
+}
+
+#rjsf_items .css-13i4rnv-MuiGrid-root {
+  align-self: flex-start;
+  padding: 0.5rem;
+}
+
+#rjsf_items .MuiPaper-rounded.css-1mbunh-MuiPaper-root {
+  box-shadow: none;
+}
+
+#rjsf_items .MuiGrid-root.css-1vam7s3-MuiGrid-root {
+  border: 1px solid rgba(76, 78, 100, 0.12);
+  border-radius: 10px;
+}
+
+#rjsf_items .MuiGrid-item.css-1vd824g-MuiGrid-root {
+  border-right: 1px solid rgba(76, 78, 100, 0.12);
+  padding: 0.5rem;
+}
+
+#rjsf_items .MuiGrid-root.css-11lq3yg-MuiGrid-root {
+  gap: 1rem;
+}
+
+#rjsf_items #root__title .MuiTypography-h5 {
+  font-size: 0.975rem;
+  line-height: 1.57;
+  color: rgba(76, 78, 100, 0.87);
+  padding-left: 0.5rem;
+  padding-bottom: 0.5rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: 60% 20% 20%;
+  padding-inline: 1.5rem;
+}
+
+
+#rjsf_items #root__title .MuiTypography-h5::before {
+  content: 'Item';
+}
+
+#rjsf_items #root__title .MuiTypography-h5::after {
+  content: 'Hours';
+}
+
+#rjsf_items #root__title .MuiDivider-root.MuiDivider-fullWidth {
+  display: none;
+}
+
+#rjsf_items .MuiGrid-root.MuiGrid-item.css-1idn90j-MuiGrid-root:nth-child(1) {
+  flex-basis: 60%;
+}
+
+#rjsf_items .MuiGrid-root.MuiGrid-item.css-1idn90j-MuiGrid-root:nth-child(2) {
+  flex-basis: 20%;
+}
+
+#rjsf_items .MuiGrid-root.MuiGrid-item.css-1idn90j-MuiGrid-root:nth-child(3) {
+  flex-basis: 20%;
+}
+
+#rjsf_items .MuiGrid-root.MuiGrid-item.css-1idn90j-MuiGrid-root:nth-child(4) {
+  flex-basis: 60%;
+}
+
+/* Following selector means element of which 
+id starts with 'root_' and ends with '_itemsDesc' */
+
+[id^="root_"][id$="_itemDesc"] {
+  height: 64px!important;
+}
+

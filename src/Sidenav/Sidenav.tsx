@@ -10,36 +10,29 @@ import { Box } from "@mui/material";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import SubjectRoundedIcon from "@mui/icons-material/SubjectRounded";
 import ReviewsRoundedIcon from "@mui/icons-material/ReviewsRounded";
-import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import AutoFixHighRoundedIcon from "@mui/icons-material/AutoFixHighRounded";
 import RoomPreferencesRoundedIcon from "@mui/icons-material/RoomPreferencesRounded";
 import FormatLineSpacingRoundedIcon from "@mui/icons-material/FormatLineSpacingRounded";
+import { FaPeopleArrows } from 'react-icons/fa'
 import { BsQuestionDiamondFill } from 'react-icons/bs'
 
 const links = [
   { name: "Employees", link: "/employees", icon: <PeopleAltRoundedIcon /> },
-  { name: "Invite", link: "/invite", icon: <ReceiptRoundedIcon /> },
+  { name: "Invite", link: "/invite", icon: <FaPeopleArrows /> },
   { name: "Uboard", link: "/uboard", icon: <DashboardRoundedIcon /> },
   { name: "Offers", link: "/offers", icon: <ReviewsRoundedIcon /> },
-  { name: "Mix", link: "/mix", icon: <SubjectRoundedIcon /> },
-];
+  { name: "Mix", link: "/mix", icon: <SubjectRoundedIcon /> }
+]
 
 const otherLinks = [
-  {
-    name: "Formbuilder",
-    link: "/formbuilder",
-    icon: <FormatLineSpacingRoundedIcon />,
-  },
-  {
-    name: "CV_builder",
-    link: "/cvbuilder",
-    icon: <RoomPreferencesRoundedIcon />,
-  },
+  { name: "Quotation", link: "/quotation", icon: <ReceiptRoundedIcon /> },
+  { name: "Formbuilder", link: "/formbuilder", icon: <FormatLineSpacingRoundedIcon />, },
+  { name: "CV_builder", link: "/cvbuilder", icon: <RoomPreferencesRoundedIcon />, },
   { name: "Editor", link: "/pagebuilder", icon: <AutoFixHighRoundedIcon /> },
-  { name: "FAQs", link: "/faq", icon: <BsQuestionDiamondFill /> },
+  { name: "FAQs", link: "/faq", icon: <BsQuestionDiamondFill /> }
 ];
 
 function Sidenav() {
