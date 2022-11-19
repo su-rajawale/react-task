@@ -530,7 +530,7 @@
           "type": "array",
           "title": "Refer",
           "items": {
-            "title": "Person",
+            "title": "",
             "type": "object",
             "properties": {
               "name": {
@@ -553,7 +553,7 @@
   ],
   "uischema": [
     {
-      "ui:order": ["firstName", "lastName", "*", "age", "refferrals"],
+      "ui:order": ["firstName", "lastName", "age", "email", "date", "refferrals", "*"],
       "firstName": {
         "ui:autofocus": true,
         "ui:emptyValue": "",

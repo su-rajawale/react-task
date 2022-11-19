@@ -36,6 +36,7 @@
     "concurrently": "^7.4.0",
     "dotenv": "^16.0.2",
     "formik": "^2.2.9",
+    "formik-mui": "^5.0.0-alpha.0",
     "formiojs": "^4.14.9",
     "grapesjs": "^0.20.1",
     "grapesjs-blocks-basic": "^1.0.1",
