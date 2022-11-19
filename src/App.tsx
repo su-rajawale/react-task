@@ -17,6 +17,7 @@ import Sidenav from './Sidenav/Sidenav'
 import Faq from './Faq/Faq'
 import { FcNext } from 'react-icons/fc'
 import Quotation from './Quotation/Quotation'
+import Postman from './Postman/Postman'
 
 function App() {
   const [isSideNav, setIsSideNav] = useState(false)
@@ -50,6 +51,7 @@ function App() {
               <Route path='/uboard' element={<UBoard />} />
               <Route path='/faq' element={<Faq />} />
               <Route path='quotation' element={<Quotation />} />
+              <Route path='postman' element={<Postman />} />
             </Routes>
           </div>
         </div>

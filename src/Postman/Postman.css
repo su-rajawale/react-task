@@ -1,0 +1,15 @@
+.postmanError {
+    font-size: 0.8rem;
+    color: red;
+    padding-top: 0.4rem;
+    padding-left: 0.4rem;
+}
+
+.inputGroup > *{
+    flex: none!important;
+    width: max-content!important;
+}
+
+#query {
+    min-width: 20rem;
+}
