@@ -1,14 +1,10 @@
-.quoteid {
-  background-color: red;
-}
-
 #rjsf_items {
   width: 100%;
 }
 
 #rjsf_items input.MuiOutlinedInput-input,
 #rjsf_items .MuiSelect-outlined {
-  padding: 0.8rem 1rem;
+  padding: 0.5rem 0.8rem;
 }
 
 #rjsf_items .MuiOutlinedInput-root {
@@ -23,7 +19,6 @@
   font-size: 0.94rem;
   line-height: 1.1em;
 }
-
 
 #rjsf_items .Mui-selected {
   background-color: rgba(38, 198, 249, 0.13);
@@ -55,8 +50,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  /* left: 50%;
-  transform: translateX(-50%); */
   font-size: 0.8125rem;
   background-color: rgb(38, 198, 249);
   border-radius: 10px;
@@ -64,6 +57,7 @@
   box-shadow: rgb(76 78 100 / 42%) 0px 4px 8px -4px;
   text-transform: uppercase;
 }
+
 #rjsf_items .MuiIconButton-root:hover[title="Add Item"]:hover{
   background-color: none;
 }
