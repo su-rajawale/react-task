@@ -18,6 +18,7 @@ import RoomPreferencesRoundedIcon from "@mui/icons-material/RoomPreferencesRound
 import FormatLineSpacingRoundedIcon from "@mui/icons-material/FormatLineSpacingRounded";
 import { FaPeopleArrows } from 'react-icons/fa'
 import { BsQuestionDiamondFill } from 'react-icons/bs'
+import { SiPostman } from 'react-icons/si'
 
 const links = [
   { name: "Employees", link: "/employees", icon: <PeopleAltRoundedIcon /> },
@@ -28,6 +29,7 @@ const links = [
 ]
 
 const otherLinks = [
+  { name: "Postman", link: "/postman", icon: <SiPostman /> },
   { name: "Quotation", link: "/quotation", icon: <ReceiptRoundedIcon /> },
   { name: "Formbuilder", link: "/formbuilder", icon: <FormatLineSpacingRoundedIcon />, },
   { name: "CV_builder", link: "/cvbuilder", icon: <RoomPreferencesRoundedIcon />, },
