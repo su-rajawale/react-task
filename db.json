@@ -55,21 +55,21 @@
       "phone": 821903102981,
       "website": "dropped.drop",
       "id": 7
+    },
+    {
+      "name": "suraj G man",
+      "email": "suraj@g.com",
+      "password": "55555",
+      "confirm_password": "55555",
+      "id": 8
     }
   ],
   "users": [
     {
-      "name": "akash",
-      "email": "akash@redxcel.com",
-      "password": "password",
-      "confirm_password": "password",
-      "id": 1
-    },
-    {
-      "name": "my name",
-      "email": "nyname@ny.com",
-      "password": "123456",
-      "confirm_password": "123456",
+      "name": "suraj G man",
+      "email": "suraj@g.com",
+      "password": "55555",
+      "confirm_password": "55555",
       "id": 2
     },
     {
@@ -92,6 +92,20 @@
       "password": "123456",
       "confirm_password": "123456",
       "id": 5
+    },
+    {
+      "name": "pharoh",
+      "email": "pharoh@tut.com",
+      "password": "pass",
+      "confirm_password": "pass",
+      "id": 7
+    },
+    {
+      "name": "sad",
+      "email": "sad@tut.com",
+      "password": "dass",
+      "confirm_password": "dass",
+      "id": 8
     }
   ],
   "quotes": [
@@ -496,7 +510,10 @@
       "title": "A registration form",
       "description": "A simple form example.",
       "type": "object",
-      "required": ["firstName", "lastName"],
+      "required": [
+        "firstName",
+        "lastName"
+      ],
       "properties": {
         "firstName": {
           "type": "string",
@@ -553,7 +570,15 @@
   ],
   "uischema": [
     {
-      "ui:order": ["firstName", "lastName", "age", "email", "date", "refferrals", "*"],
+      "ui:order": [
+        "firstName",
+        "lastName",
+        "age",
+        "email",
+        "date",
+        "refferrals",
+        "*"
+      ],
       "firstName": {
         "ui:autofocus": true,
         "ui:emptyValue": "",
@@ -600,7 +625,11 @@
   "offerSchema": [
     {
       "type": "object",
-      "required": ["title", "default", "file"],
+      "required": [
+        "title",
+        "default",
+        "file"
+      ],
       "properties": {
         "title": {
           "type": "string",
@@ -630,7 +659,12 @@
       "ui:submitButtonOptions": {
         "submitText": "Create"
       },
-      "ui:order": ["title", "default", "file", "link"],
+      "ui:order": [
+        "title",
+        "default",
+        "file",
+        "link"
+      ],
       "title": {
         "ui:autofocus": true,
         "ui:emptyValue": ""
@@ -643,7 +677,11 @@
       },
       "file": {
         "ui:options": {
-          "accept": [".png", ".jpg", ".jpeg"]
+          "accept": [
+            ".png",
+            ".jpg",
+            ".jpeg"
+          ]
         }
       }
     }
@@ -685,93 +723,109 @@
       "id": 7
     }
   ],
-  "catagories": [
-    {
-      "id": 1,
-      "title": "All",
-      "classes": "filter-item all",
-      "dataFilter": "all"
-    },
-    {
-      "id": 2,
-      "title": "Front-End",
-      "classes": "filter-item front",
-      "dataFilter": ".front"
-    },
-    {
-      "id": 3,
-      "title": "Mobile",
-      "classes": "filter-item mobile",
-      "dataFilter": ".mobile"
-    },
-    {
-      "id": 4,
-      "title": "UI/Ux",
-      "classes": "filter-item uiux",
-      "dataFilter": ".uiux"
-    },
-    {
-      "id": 5,
-      "title": "Challenge",
-      "classes": "filter-item challenge",
-      "dataFilter": ".challenge"
-    },
-    {
-      "id": 6,
-      "title": "React.js",
-      "classes": "filter-item react",
-      "dataFilter": ".react"
-    }
-  ],
   "itemsSchema": [
     {
-      "title": "Cost",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "title": "",
-        "properties": {
-          "itemType": {
-            "type": "string",
+      "title": "",
+      "type": "object",
+      "properties": {
+        "itemArray": {
+          "title": "Items",
+          "type": "array",
+          "items": {
+            "type": "object",
             "title": "",
-            "default": "1",
-            "anyOf": [
-              {
+            "properties": {
+              "itemType": {
                 "type": "string",
-                "title": "App Development",
-                "enum": ["1"]
+                "title": "",
+                "default": "1",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "title": "App Development",
+                    "enum": [
+                      "1"
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "title": "App Template",
+                    "enum": [
+                      "2"
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "title": "App Customization",
+                    "enum": [
+                      "3"
+                    ]
+                  },
+                  {
+                    "type": "string",
+                    "title": "App Design",
+                    "enum": [
+                      "4"
+                    ]
+                  }
+                ]
               },
-              {
-                "type": "string",
-                "title": "App Template",
-                "enum": ["2"]
+              "cost": {
+                "type": "number",
+                "title": "",
+                "default": 24
               },
-              {
-                "type": "string",
-                "title": "App Customization",
-                "enum": ["3"]
+              "hours": {
+                "type": "number",
+                "title": "",
+                "default": 1
               },
-              {
+              "itemDesc": {
                 "type": "string",
-                "title": "App Design",
-                "enum": ["4"]
+                "title": "",
+                "default": "Customization & Bug Fixes"
               }
-            ]
-          },
-          "cost": {
-            "type": "number",
-            "title": "",
-            "default": 24
-          },
-          "hours": {
-            "type": "number",
-            "title": "",
-            "default": 1
-          },
-          "itemDesc": {
-            "type": "string",
-            "title": "",
-            "default": "Customization & Bug Fixes"
+            }
+          }
+        },
+        "invoiceTo": {
+          "type": "object",
+          "title": "Invoice",
+          "properties": {
+            "user": {
+              "type": "string",
+              "title": "Invoice To",
+              "anyOf": [
+                {
+                  "type": "string",
+                  "title": "Tony Harrera",
+                  "enum": [
+                    "412"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "title": "Megan Fox",
+                  "enum": [
+                    "413"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "title": "Ana Anderson",
+                  "enum": [
+                    "414"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "title": "Hannah Bastin",
+                  "enum": [
+                    "415"
+                  ]
+                }
+              ]
+            }
           }
         }
       }
@@ -779,30 +833,45 @@
   ],
   "itemsUiSchema": [
     {
-      "items": {
-        "ui:submitButtonOptions": {
-          "submitText": "Save"
-        },
-        "ui:order": ["itemType", "cost", "hours", "itemDesc"],
-        "itemType": {
-          "ui:classNames": "inputField",
-          "ui:emptyValue": "1"
-        },
-        "cost": {
-          "ui:widget": "updown",
-          "ui:classNames": "inputField",
-          "ui:placeholder": "24"
-        },
-        "hours": {
-          "ui:classNames": "inputField",
-          "ui:widget": "updown",
-          "ui:placeholder": "1"
-        },
-        "itemDesc": {
-          "ui:classNames": "inputField",
-          "ui:widget": "textarea",
-          "ui:placeholder": "Customization & Bug Fixes"
+      "ui:order": [
+        "invoiceTo",
+        "itemArray"
+      ],
+      "ui:classNames": "items-root",
+      "itemArray": {
+        "items": {
+          "ui:submitButtonOptions": {
+            "submitText": "Save"
+          },
+          "ui:order": [
+            "itemType",
+            "cost",
+            "hours",
+            "itemDesc"
+          ],
+          "itemType": {
+            "ui:classNames": "inputField",
+            "ui:emptyValue": "1"
+          },
+          "cost": {
+            "ui:widget": "updown",
+            "ui:classNames": "inputField",
+            "ui:placeholder": "24"
+          },
+          "hours": {
+            "ui:classNames": "inputField",
+            "ui:widget": "updown",
+            "ui:placeholder": "1"
+          },
+          "itemDesc": {
+            "ui:classNames": "inputField",
+            "ui:widget": "textarea",
+            "ui:placeholder": "Customization & Bug Fixes"
+          }
         }
+      },
+      "invoiceTo": {
+        "ui:widget": "select"
       }
     }
   ]
