@@ -6,6 +6,7 @@ import { useFormik } from 'formik'
 import { object, string } from 'yup'
 import { Form } from '@rjsf/mui'
 import { RJSFSchema, UiSchema } from '@rjsf/utils'
+import { IChangeEvent } from '@rjsf/core'
 import validator from "@rjsf/validator-ajv8"
 
 const initialInvoices = {
@@ -19,20 +20,6 @@ const Quotation = () => {
   const [itemsSchema, setItemsSchema] = useState<RJSFSchema>()
   const [itemsUiSchema, setItemsUiSchema] = useState<UiSchema>()
 
-
-  const invoiceSchema = object({
-    invoiceId: string().required('Invoice ID is required'),
-    dueDate: string().required('Due date is required'),
-    invoiceTo: string().required('Please Say who do you want send invoice to'),
-  })
-
-  const invoiceFrom = useFormik({
-    initialValues: initialInvoices,
-    validationSchema: invoiceSchema,
-    onSubmit: (action, values) => {
-      // submit logic
-    }
-  })
 
   const getItemsSchema = async () => {
     await axios.get('http://localhost:5000/itemsSchema/')
@@ -48,16 +35,10 @@ const Quotation = () => {
       })
   }
 
-  const clickbtn = () => {
-    const butn: HTMLButtonElement | null = document.querySelector('[title="Add Item"]')
-    if (butn) { console.log(butn); butn.click() }
-  }
-
 
   useEffect(() => {
     getItemsSchema()
     getItemsUiSchema()
-    clickbtn()
   }, [])
 
 
@@ -100,11 +81,14 @@ const Quotation = () => {
             {/* Form */}
           </Box>
           <Box>
-            {/* <Address /> */}
-          </Box>
-          <Box>
             {itemsSchema && itemsUiSchema &&
-              <Form id='rjsf_items' schema={itemsSchema} uiSchema={itemsUiSchema} validator={validator} onSubmit={(data) => { console.log(data.formData) }} />
+              <Form
+                id='rjsf_items'
+                schema={itemsSchema}
+                uiSchema={itemsUiSchema}
+                validator={validator}
+                onSubmit={(data) => { console.log(data) }}
+                onChange={(data) => { console.log(data) }} />
             }
           </Box>
         </Box>

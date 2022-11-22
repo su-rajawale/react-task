@@ -158,3 +158,6 @@ id starts with 'root_' and ends with '_itemsDesc' */
   height: 64px!important;
 }
 
+.items-root > div > .MuiGrid-container {
+  flex-direction: column;
+}
