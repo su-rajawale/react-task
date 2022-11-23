@@ -15,17 +15,9 @@
 }
 
 #postman_form .MuiOutlinedInput-input {
-    padding: 0.45rem 2.5rem 0.45rem 0.8rem;
+    padding: 0.5rem 2.5rem 0.5rem 0.8rem;
 }
 
 .tab-content {
     padding: 24px;
-}
-
-#postman_form .MuiOutlinedInput-root {
-    border-radius: 0;
-}
-
-#method ~ fieldset {
-    border-right: 0;
 }
