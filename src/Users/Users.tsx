@@ -27,18 +27,8 @@ import {
     GridToolbarExport,
     GridToolbarDensitySelector, } from '@mui/x-data-grid'
 import { Box } from '@mui/material'
-import { gridClasses } from '@mui/material'
 
 import { alpha, styled } from '@mui/material/styles'
-// import { AiOutlineDrag } from 'react-icons/ai'
-// import { MdOutlineDragHandle } from 'react-icons/md'
-// import Table from '@mui/material/Table'
-// import TableBody from '@mui/material/TableBody'
-// import TableCell from '@mui/material/TableCell'
-// import TableContainer from '@mui/material/TableContainer'
-// import TableHead from '@mui/material/TableHead'
-// import TableRow from '@mui/material/TableRow'
-// import { Button } from '@mui/material'
 
 function CustomToolbar() {
     return (
@@ -53,7 +43,6 @@ function CustomToolbar() {
 
 function Users() {
     const [users, setUsers] = useState<employeesType[]>([])
-    // const [fetchError, setFetchError] = useState('')
     const BASE_URL = 'http://localhost:5000/employees/'
 
     const [rowId, updateRowId] = useState<number | null>()
@@ -65,6 +54,7 @@ function Users() {
         await axios.get(BASE_URL)
             .then(function (res) {
                 setUsers(res.data)
+                console.log('data fetched')
             })
             .catch(function (err) {
                 // setFetchError('fetch-error')
@@ -113,7 +103,7 @@ function Users() {
     }
 
     useEffect(() => {
-        getUsers()
+       getUsers()
     }, [])
 
     const ODD_OPACITY = 0.2;
@@ -151,7 +141,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
   },
 }));
 
-    const colDef: GridColDef[] = useMemo(()=> [
+    const colDef: GridColDef[] = [
         {
             field: 'id', headerName: 'No.', maxWidth: 40, renderCell: (params) => {
                 return (<><span>{params.row.id}</span></>)
@@ -187,7 +177,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
                 )
             }
         }
-    ], [users])
+    ]
 
     return (
         <Box p='24px' >
