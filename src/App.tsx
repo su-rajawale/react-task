@@ -79,7 +79,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'space-between',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -178,6 +178,7 @@ function App() {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
+          <img src='./logo.png' alt='logo' style={{width: '120px', maxWidth: '100%'}} />
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
@@ -270,38 +271,6 @@ function App() {
             </Routes>
       </Box>
     </Box>
-      {/* <main id={!isSideNav ? 'app' : 'sideHide'}>
-        <div id={!isSideNav ? "sidenav" : "sideNavHidden"}>
-          <Sidenav />
-        </div>
-        <div id='content'>
-          <div id='navbar'>
-            <div className='toolbar'>
-              <div className={!isSideNav ? 'closeBtn' : 'openBtn'} onClick={() => { setIsSideNav((prev) => !prev) }}><FcNext /></div>
-            </div>
-            <Navbar />
-          </div>
-          <div id="page">
-            <Routes>
-              <Route path='/' element={<Dash />} />
-              <Route path='*' element={<NotFound />} />
-              <Route path='/employees' element={<Users />} />
-              <Route path='/pagebuilder' element={<PageBuilder />} />
-              <Route path='/invite' element={<Invite />} />
-              <Route path='/users/:id' element={<User />} />
-              <Route path='/forms' element={<FormIo />} />
-              <Route path='/cvbuilder' element={<CvBuilder />} />
-              <Route path='/formbuilder' element={<SchemaBuilder />} />
-              <Route path='/offers' element={<Offers />} />
-              <Route path='/mix' element={<Mix />} />
-              <Route path='/uboard' element={<UBoard />} />
-              <Route path='/faq' element={<Faq />} />
-              <Route path='quotation' element={<Quotation />} />
-              <Route path='postman' element={<Postman />} />
-            </Routes>
-          </div>
-        </div>
-      </main> */}
     </div>
 
   );
