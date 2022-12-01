@@ -1,4 +1,4 @@
-import React, { useState, useRef, ElementRef } from 'react'
+import React, { useState } from 'react'
 
 // Formik
 import * as yup from 'yup'
@@ -15,10 +15,10 @@ import CodeMirror from '@uiw/react-codemirror'
 import { json } from '@codemirror/lang-json'
 
 // Axios
-import axios, { AxiosResponseHeaders } from 'axios'
+import axios, { AxiosError, AxiosResponseHeaders } from 'axios'
 
 // Material UI
-import { Box, MenuItem, Typography } from '@mui/material'
+import { Backdrop, Box, CircularProgress, List, ListItem, MenuItem, Typography } from '@mui/material'
 import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
@@ -32,28 +32,14 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Fab from '@mui/material/Fab'
 
+// Types
+import { Item, PostmanForm, TabPanelProps } from './types'
+import { BsBox } from 'react-icons/bs'
+
 const validationSchema = yup.object({
     method: yup.string().required('Please Select Method'),
     query: yup.string().required('Plese Enter Query')
 })
-
-type Item = {
-    key?: any,
-    value?: any
-}
-
-type PostmanForm = {
-    method: string;
-    query: string;
-    queryParams: {}[];
-    requestHeaders: {}[];
-}
-
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-}
 
 const initialValues: PostmanForm = {
     method: '',
@@ -108,6 +94,7 @@ const Postman = () => {
     const [jsonError, setJsonError] = useState(false)
     const [tabValue, setTabValue] = useState(0)
     const [tab2Value, setTab2Value] = useState(0)
+    const [loading, setLoading] = useState(false)
 
     const handleTabValueChange = (event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue)
@@ -118,6 +105,7 @@ const Postman = () => {
     }
 
     const handleSubmit = async (values: PostmanForm, action: FormikHelpers<PostmanForm>) => {
+        setLoading(true)
         if (values) {
             const hdr = values.requestHeaders
             const prm = values.queryParams
@@ -145,12 +133,19 @@ const Postman = () => {
                             setResponseSize(length)
                         }
                     })
-                    .catch((e) => console.log(e))
+                    .catch((e: AxiosError) => {
+                        const message: any = { error: e.message }
+                        setJsonData(message)
+                    }).
+                    finally(() => {
+                        setLoading(false)
+                    })
             } else {
                 let sendData
                 try {
                     sendData = JSON.parse(dataToSend)
                 } catch (e) {
+                    setLoading(false)
                     setJsonError(true)
                     return
                 }
@@ -176,24 +171,36 @@ const Postman = () => {
                             setResponseSize(length)
                         }
                     })
-                    .catch((e) => { console.log(e) })
+                    .catch((e: AxiosError) => {
+                        const message: any = { error: e.message }
+                        setJsonData(message)
+                    })
+                    .finally(() => {
+                        setLoading(false)
+                    })
             }
         } else { alert('No values Provided') }
         action.resetForm();
     }
 
     return (
-        <Box p='24px' display='flex' flexDirection='column' gap='2rem'>
+        <Box p='24px' display='flex' flexWrap='wrap' gap='0.5rem'>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 enableReinitialize
-                onSubmit={(values, action) => handleSubmit(values, action)}>
+                onSubmit={(values, action) => handleSubmit(values, action)}
+            >
 
                 {({ values }) => (
-                    <Form id='postman_form' style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                    <Form id='postman_form' style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '18px 18px 18px 0', flexBasis: '45%' }}>
 
-                        <Box display='flex' alignItems='flex-start' gap='1rem'>
+                        <Box gap='1rem' sx={{
+                            display: 'flex',
+                            alignItems: { xs: 'strech', md: 'flex-start' },
+                            flexDirection: { xs: 'column', md: 'row' },
+                            gap: '1rem'
+                        }}>
                             <Field id='method' name='method' value={values.method} component={TextField} select style={{ flexBasis: 'max-content' }}>
                                 <MenuItem disabled>--- Select Method ---</MenuItem>
                                 <MenuItem value='get'>GET</MenuItem>
@@ -210,7 +217,7 @@ const Postman = () => {
                         <Box>
                             <Box sx={{ borderBottom: 1, borderColor: 'divider', marginBottom: '1rem' }}>
                                 <Tabs value={tabValue} onChange={handleTabValueChange} aria-label="basic tabs example">
-                                    <Tab label="Query Params" {...a11yProps(0)} />
+                                    <Tab wrapped label="Query Params" {...a11yProps(0)} />
                                     <Tab label="Headers" {...a11yProps(1)} />
                                     <Tab label="JSON" {...a11yProps(2)} />
                                 </Tabs>
@@ -223,15 +230,17 @@ const Postman = () => {
                                         {({ remove, push }) => (
                                             <>
                                                 {values.queryParams.length > 0 && values.queryParams.map((param: Item, index) => (
-                                                    <div key={index} style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                                    <Box key={index} display='flex' gap='0.5rem' alignItems='center' flexWrap='wrap'>
                                                         <Field type='text' name={`queryParams.${index}.key`} placeholder='Key' value={param.key} component={TextField} />
-                                                        <Field type='text' name={`queryParams.${index}.value`} placeholder='value' value={param.value} component={TextField} />
-                                                        <Fab size='small' color='error' onClick={() => remove(index)}><RemoveIcon /></Fab>
-                                                    </div>
+                                                        <Box display='flex' gap='1rem'>
+                                                            <Field type='text' name={`queryParams.${index}.value`} placeholder='value' value={param.value} component={TextField} />
+                                                            <Fab size='small' color='error' onClick={() => remove(index)}><RemoveIcon /></Fab>
+                                                        </Box>
+                                                    </Box>
                                                 ))}
-                                                <div>
+                                                <Box>
                                                     <Fab size='small' color='primary' onClick={() => { push({ key: '', value: '' }) }}><AddIcon /></Fab>
-                                                </div>
+                                                </Box>
                                             </>
                                         )}
                                     </FieldArray>
@@ -245,17 +254,19 @@ const Postman = () => {
                                         {({ remove, push }) => (
                                             <>
                                                 {values.requestHeaders.length > 0 && values.requestHeaders.map((header: Item, index) => (
-                                                    <div key={index} style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                                    <Box key={index} display='flex' gap='0.5rem' alignItems='center' flexWrap='wrap'>
                                                         <Field type='text' name={`requestHeaders.${index}.key`} placeholder='Key' value={header.key} component={TextField} />
-                                                        <Field type='text' name={`requestHeaders.${index}.value`} placeholder='value' value={header.value} component={TextField} />
-                                                        {/* <Button size='small' variant='contained' color='error' onClick={() => remove(index)}>remove</Button> */}
-                                                        <Fab size='small' color='error' onClick={() => remove(index)}><RemoveIcon /></Fab>
-                                                    </div>
+                                                        <Box display='flex' gap='1rem'>
+                                                            <Field type='text' name={`requestHeaders.${index}.value`} placeholder='value' value={header.value} component={TextField} />
+                                                            {/* <Button size='small' variant='contained' color='error' onClick={() => remove(index)}>remove</Button> */}
+                                                            <Fab size='small' color='error' onClick={() => remove(index)}><RemoveIcon /></Fab>
+                                                        </Box>
+                                                    </Box>
                                                 ))}
-                                                <div>
+                                                <Box>
                                                     {/* <Button size='small' variant='contained' color='primary' onClick={() => { push({ key: '', value: '' }) }}>Add</Button> */}
                                                     <Fab size='small' color='primary' onClick={() => { push({ key: '', value: '' }) }}><AddIcon /></Fab>
-                                                </div>
+                                                </Box>
                                             </>
                                         )}
                                     </FieldArray>
@@ -278,7 +289,7 @@ const Postman = () => {
                     </Form>
                 )}
             </Formik>
-            <Box>
+            <Box style={{ padding: '18px', border: '1px solid #d7d7d7', borderRadius: '8px', flex: '1' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider', marginBottom: '1rem' }}>
                     <Tabs value={tab2Value} onChange={handleTab2ValueChange}>
                         <Tab label="Response" {...a11yProps(0)} />
@@ -293,7 +304,7 @@ const Postman = () => {
                             <Box display='flex' gap='1rem' pb='1rem'>
                                 <Typography>Status: {responseStatus && `${responseStatus}`}</Typography> <Typography>Time: TBD</Typography> <Typography>Size: {responseSize && `${responseSize}`}</Typography>
                             </Box>
-                            <Box width='25rem' height='25rem' sx={{ overflowY: 'auto', overflowX: 'hidden' }}>
+                            <Box height='50vh' sx={{ overflowY: 'auto', overflowX: 'hidden' }}>
                                 <CodeMirror
                                     value={JSON.stringify(jsonData, null, 2)}
                                     extensions={[json()]}
@@ -305,16 +316,16 @@ const Postman = () => {
                 </TabPanel>
 
                 <TabPanel value={tab2Value} index={1}>
-                    <ul className='res-headers'>
+                    <List dense>
                         {responseHeaders && Object.entries(responseHeaders).map(([key, value], index) => {
                             return (
-                                <li key={index} style={{ display: 'flex', gap: '0.5rem' }}>
+                                <ListItem key={index} sx={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
                                     <Typography variant='overline' fontWeight='bold' color='grey'>{key}</Typography>:
                                     <Typography variant='overline' color='grey'>{value}</Typography>
-                                </li>
+                                </ListItem>
                             )
                         })}
-                    </ul>
+                    </List>
                 </TabPanel>
 
             </Box>
@@ -323,7 +334,7 @@ const Postman = () => {
 
                 <DialogTitle>
                     <Box display='flex' alignItems='center' alignContent='center' gap='1rem'>
-                        <ReportGmailerrorredIcon color='error' fontSize='large'/>
+                        <ReportGmailerrorredIcon color='error' fontSize='large' />
                         <Typography fontSize='1.2rem'>Invalid JSON</Typography>
                     </Box>
                 </DialogTitle>
@@ -342,6 +353,12 @@ const Postman = () => {
                 </DialogActions>
 
             </Dialog>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loading}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </Box >
     )
 }
