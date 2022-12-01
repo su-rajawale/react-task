@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,50 +16,66 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import GetAppIcon from "@mui/icons-material/GetApp";
-import { Tooltip } from "@mui/material";
+import { Backdrop, CircularProgress, Tooltip } from "@mui/material";
 
 const ListOffers = ({ offers, getOffers, ...rest }: listofferProps) => {
+  const [loading, setLoading] = useState(false)
+
   const deleteOffer = async (id: number) => {
-    await axios.delete(`http://localhost:5000/offers/${id}`);
-    getOffers();
+    setLoading(true)
+    await axios.delete(`http://localhost:5000/offers/${id}`)
+      .finally(() => {
+        setLoading(false)
+      })
+    getOffers()
   };
 
   const handleActivation = async (id: number) => {
+    setLoading(true)
     await axios.get("http://localhost:5000/offers/").then(async (res) => {
       const data: offerType[] = res.data;
       const ofr = data.find((x) => x.id === id);
-      if(ofr) {
-        if (ofr.activated === true) {
-          const dact = { activated: false };
-          await axios.patch(`http://localhost:5000/offers/${id}`, dact);
-          getOffers();
-          toast.warn("Offer Deactivated Successfully", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: 0,
-            theme: "light",
-          });
-        } else if (ofr.activated === false) {
-          const act = { activated: true };
-          await axios.patch(`http://localhost:5000/offers/${id}`, act);
-          getOffers();
-          toast.success("Offer Activated Successfully", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: 0,
-            theme: "light",
-          });
+      if (ofr) {
+        if (ofr.active === true) {
+          const dact = { active: false };
+          await axios.patch(`http://localhost:5000/offers/${id}`, dact)
+            .finally(() => {
+              setLoading(false)
+            })
+              getOffers()
+              toast.warn("Offer Deactivated Successfully", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: 0,
+                theme: "light",
+              })
+            } else if (ofr.active === false) {
+              const act = { active: true };
+              await axios.patch(`http://localhost:5000/offers/${id}`, act)
+              .finally(()=> {
+                setLoading(false)
+              })
+              getOffers();
+              toast.success("Offer Activated Successfully", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: 0,
+                theme: "light",
+              })
+            }
         }
-      }
-    });
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   };
 
   const handleDownload = (id: number, file: string) => {
@@ -93,13 +109,13 @@ const ListOffers = ({ offers, getOffers, ...rest }: listofferProps) => {
                 </TableHead>
                 <TableBody>
                   {offers.map(
-                    ({ title, updatedAt, id, activated, file }: offerType, index: number) => (
+                    ({ title, updatedAt, id, active, file }: offerType, index: number) => (
                       <TableRow key={index}>
                         <TableCell>{`${index + 1}.`}</TableCell>
                         <TableCell>{title}</TableCell>
                         <TableCell>{updatedAt}</TableCell>
                         <TableCell>
-                          {activated ? <p>Yes</p> : <p>No</p>}
+                          {active ? <p>Yes</p> : <p>No</p>}
                         </TableCell>
                         <TableCell className={styles.action}>
                           <Tooltip title="Delete">
@@ -111,13 +127,13 @@ const ListOffers = ({ offers, getOffers, ...rest }: listofferProps) => {
                             </IconButton>
                           </Tooltip>
                           <Tooltip
-                            title={activated ? "Deactivate" : "Activate"}
+                            title={active ? "Deactivate" : "Activate"}
                           >
                             <IconButton
                               color="primary"
                               onClick={() => handleActivation(id)}
                             >
-                              {activated ? (
+                              {active ? (
                                 <BlockIcon />
                               ) : (
                                 <CheckCircleOutlineIcon />
@@ -142,6 +158,12 @@ const ListOffers = ({ offers, getOffers, ...rest }: listofferProps) => {
           )}
         </div>
       </div>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <ToastContainer />
     </div>
   );
