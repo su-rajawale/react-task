@@ -161,3 +161,9 @@ id starts with 'root_' and ends with '_itemsDesc' */
 .items-root > div > .MuiGrid-container {
   flex-direction: column;
 }
+
+#invoiceForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
