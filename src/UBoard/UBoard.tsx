@@ -16,8 +16,6 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { TableFooter } from "@mui/material";
 import { columnType, taskData } from './types'
 
-// const task = {id:1, heading:"Benton", content:"Chanay Sample", amount:"2500"}
-
 const initialData = {
   tasks: {
     1: {

@@ -6,7 +6,7 @@ export type offerType = {
     link: string,
     file: string,
     updatedAt: string,
-    activated: boolean,
+    active: boolean,
     id: number
   }
 
