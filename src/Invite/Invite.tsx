@@ -19,6 +19,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
+import { Typography, Box } from '@mui/material';
 
 type quotesType = {
   id: number,
@@ -111,14 +112,14 @@ function Invite() {
   return (
     <div id='invite'>
       <div className='users-heading'>
-        <span><h1>Invites List</h1></span>
-        <span>
+        <Box component='span'><Typography variant='h1' fontSize='2.5rem'>Invites List</Typography></Box>
+        <Box component='span'>
           <Tooltip arrow title='Send Invites'>
             <Fab color="primary" size='medium'>
               <FiSend />
             </Fab>
           </Tooltip>
-        </span>
+        </Box>
       </div>
 
       <Select
