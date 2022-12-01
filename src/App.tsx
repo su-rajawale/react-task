@@ -10,8 +10,7 @@ import NotFound from './NotFound/NotFound'
 import PageBuilder from './PageBuilder/PageBuilder'
 import UBoard from './UBoard/UBoard'
 import Invite from './Invite/Invite'
-import CvBuilder from './CvBuilder/CvBuilder'
-import SchemaBuilder from './SchemaBuilder/SchemaBuilder'
+import Windowed from './Windowed/Windowed'
 import Offers from './Offers/Offers'
 import Mix from './Mix/Mix'
 import Dash from './Dash/Dash'
@@ -39,7 +38,7 @@ import ListItemText from '@mui/material/ListItemText';
 import HelpIcon from '@mui/icons-material/Help';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SubjectRoundedIcon from "@mui/icons-material/SubjectRounded";
 import ReviewsRoundedIcon from "@mui/icons-material/ReviewsRounded";
@@ -125,6 +124,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 const links = [
+  { name: "Home", link: "/", icon: <HomeOutlinedIcon /> },
   { name: "Employees", link: "/employees", icon: <PeopleAltRoundedIcon /> },
   { name: "Invite", link: "/invite", icon: <ConnectWithoutContactIcon /> },
   { name: "Uboard", link: "/uboard", icon: <DashboardRoundedIcon /> },
@@ -135,142 +135,139 @@ const links = [
 const otherLinks = [
   { name: "Postman", link: "/postman", icon: <MarkunreadMailboxIcon /> },
   { name: "Quotation", link: "/quotation", icon: <ReceiptRoundedIcon /> },
-  { name: "Formbuilder", link: "/formbuilder", icon: <FormatLineSpacingRoundedIcon />, },
-  { name: "CV_builder", link: "/cvbuilder", icon: <RoomPreferencesRoundedIcon />, },
+  { name: "Windowed", link: "/windowed", icon: <FormatLineSpacingRoundedIcon />, },
   { name: "Editor", link: "/pagebuilder", icon: <AutoFixHighRoundedIcon /> },
   { name: "FAQs", link: "/faq", icon: <HelpIcon /> }
-];  
+];
 
 function App() {
   // const [isSideNav, setIsSideNav] = useState(false)
 
-  const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const theme = useTheme()
+  const [open, setOpen] = useState(false)
 
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   return (
     <div>
       <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Navbar />
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <img src='./logo.png' alt='logo' style={{width: '120px', maxWidth: '100%'}} />
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {links.map(({name, link, icon}, index) => (
-            <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-              <NavLink
-                    className={({ isActive }) =>
-                      isActive ? 'active' : undefined
-                    }
-                    to={link}
-                    style={{textDecoration: 'none', color: 'black'}}
-                  >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
+        <CssBaseline />
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: 5,
+                ...(open && { display: 'none' }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Navbar />
+          </Toolbar>
+        </AppBar>
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader sx={{ padding: '0 16px' }}>
+            <img src='./logo.png' alt='logo' style={{ width: '120px', maxWidth: '100%' }} />
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            {links.map(({ name, link, icon }, index) => (
+              <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? 'active' : undefined
+                  }
+                  to={link}
+                  style={{ textDecoration: 'none', color: 'black' }}
                 >
-                  {icon}
-                </ListItemIcon>
-                <ListItemText primary={name} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-              </NavLink>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {otherLinks.map(({name, link, icon}, index) => (
-            <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-              <NavLink
-                    className={({ isActive }) =>
-                      isActive ? 'active' : undefined
-                    }
-                    to={link}
-                    style={{textDecoration: 'none', color: 'black'}}
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                    }}
                   >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {icon}
+                    </ListItemIcon>
+                    <ListItemText primary={name} sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </NavLink>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            {otherLinks.map(({ name, link, icon }, index) => (
+              <ListItem key={index} disablePadding sx={{ display: 'block' }}>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? 'active' : undefined
+                  }
+                  to={link}
+                  style={{ textDecoration: 'none', color: 'black' }}
                 >
-                  {icon}
-                </ListItemIcon>
-                <ListItemText primary={name} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-              </NavLink>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, maxHeight: '100vh', overflowY: 'auto' }}>
-        <DrawerHeader />
-        <Routes>
-              <Route path='/' element={<Dash />} />
-              <Route path='*' element={<NotFound />} />
-              <Route path='/employees' element={<Users />} />
-              <Route path='/pagebuilder' element={<PageBuilder />} />
-              <Route path='/invite' element={<Invite />} />
-              <Route path='/users/:id' element={<User />} />
-              {/* <Route path='/forms' element={<FormIo />} /> */}
-              <Route path='/cvbuilder' element={<CvBuilder />} />
-              <Route path='/formbuilder' element={<SchemaBuilder />} />
-              <Route path='/offers' element={<Offers />} />
-              <Route path='/mix' element={<Mix />} />
-              <Route path='/uboard' element={<UBoard />} />
-              <Route path='/faq' element={<Faq />} />
-              <Route path='quotation' element={<Quotation />} />
-              <Route path='postman' element={<Postman />} />
-            </Routes>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {icon}
+                    </ListItemIcon>
+                    <ListItemText primary={name} sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </NavLink>
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, maxHeight: '100vh', overflowY: 'auto' }}>
+          <DrawerHeader />
+          <Routes>
+            <Route path='/' element={<Dash />} />
+            <Route path='*' element={<NotFound />} />
+            <Route path='/employees' element={<Users />} />
+            <Route path='/pagebuilder' element={<PageBuilder />} />
+            <Route path='/invite' element={<Invite />} />
+            <Route path='/users/:id' element={<User />} />
+            <Route path='/windowed' element={<Windowed />} />
+            <Route path='/offers' element={<Offers />} />
+            <Route path='/mix' element={<Mix />} />
+            <Route path='/uboard' element={<UBoard />} />
+            <Route path='/faq' element={<Faq />} />
+            <Route path='quotation' element={<Quotation />} />
+            <Route path='postman' element={<Postman />} />
+          </Routes>
+        </Box>
       </Box>
-    </Box>
     </div>
 
   );
