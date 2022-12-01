@@ -16,22 +16,20 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from "@mui/icons-material/Block";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import GetAppIcon from "@mui/icons-material/GetApp";
-import { Backdrop, CircularProgress, Tooltip } from "@mui/material";
+import { Skeleton, Tooltip } from "@mui/material";
 
 const ListOffers = ({ offers, getOffers, ...rest }: listofferProps) => {
-  const [loading, setLoading] = useState(false)
 
   const deleteOffer = async (id: number) => {
-    setLoading(true)
+    
     await axios.delete(`http://localhost:5000/offers/${id}`)
       .finally(() => {
-        setLoading(false)
       })
     getOffers()
   };
 
   const handleActivation = async (id: number) => {
-    setLoading(true)
+    
     await axios.get("http://localhost:5000/offers/").then(async (res) => {
       const data: offerType[] = res.data;
       const ofr = data.find((x) => x.id === id);
@@ -40,7 +38,6 @@ const ListOffers = ({ offers, getOffers, ...rest }: listofferProps) => {
           const dact = { active: false };
           await axios.patch(`http://localhost:5000/offers/${id}`, dact)
             .finally(() => {
-              setLoading(false)
             })
               getOffers()
               toast.warn("Offer Deactivated Successfully", {
@@ -57,7 +54,7 @@ const ListOffers = ({ offers, getOffers, ...rest }: listofferProps) => {
               const act = { active: true };
               await axios.patch(`http://localhost:5000/offers/${id}`, act)
               .finally(()=> {
-                setLoading(false)
+                
               })
               getOffers();
               toast.success("Offer Activated Successfully", {
@@ -74,7 +71,7 @@ const ListOffers = ({ offers, getOffers, ...rest }: listofferProps) => {
         }
       })
       .finally(() => {
-        setLoading(false)
+        
       })
   };
 
@@ -95,7 +92,7 @@ const ListOffers = ({ offers, getOffers, ...rest }: listofferProps) => {
           <h5>List Offers</h5>
         </div>
         <div className={styles.offerList}>
-          {offers && (
+          {offers ? (
             <TableContainer>
               <Table>
                 <TableHead>
@@ -155,15 +152,19 @@ const ListOffers = ({ offers, getOffers, ...rest }: listofferProps) => {
                 </TableBody>
               </Table>
             </TableContainer>
-          )}
+          ): (
+
+            [...Array(6)].map((e, i) => <Skeleton variant="rounded" width='100%' height={40} style={{marginBottom: '2rem'}} />)
+          )
+          }
         </div>
       </div>
-      <Backdrop
+      {/* <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loading}
       >
         <CircularProgress color="inherit" />
-      </Backdrop>
+      </Backdrop> */}
       <ToastContainer />
     </div>
   );
