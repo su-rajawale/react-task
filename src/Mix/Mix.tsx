@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import styles from "./Mix.module.css";
 import { FaSearch } from "react-icons/fa";
-import zIndex from "@mui/material/styles/zIndex";
 
 type Data = {
   name: string;
