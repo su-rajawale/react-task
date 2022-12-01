@@ -167,3 +167,11 @@ id starts with 'root_' and ends with '_itemsDesc' */
   flex-direction: column;
   gap: 1rem;
 }
+
+.react-datepicker-wrapper {
+  max-width: max-content;
+}
+
+.react-datepicker__close-icon::after {
+  line-height: 0!important;
+}

@@ -4,7 +4,7 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import './Quotation.css';
 import { Controller, FieldValues, useFieldArray, useForm } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
-import Select, { SingleValue } from 'react-select';
+import Select from 'react-select';
 // import DatePicker from 'react-date-picker';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -40,16 +40,16 @@ const InTextField = styled(TextField)({
 })
 
 const Quotation = () => {
-  const { register, control, handleSubmit, watch } = useForm()
+  const { register, control, handleSubmit, watch, formState: { errors } } = useForm()
   const { fields, remove, append } = useFieldArray({ control, name: "items" })
 
-  const [selectValue, setSelectValue] = useState<SingleValue<Option>>()
   const [quotePreview, setQuotePreview] = useState(false)
-  // const [quoteData, setQuoteData] = useState<FieldValues | null>()
   const inputRef = useRef(null);
+  const [quoteData, setQuoteData] = useState<FieldValues>()
+  let selectValue = watch('invoiceTo')
 
   const CustomInput = forwardRef((props: any, ref) => {
-    return <InTextField {...props} ref={ref} />;
+    return <InTextField fullWidth {...props} ref={ref} />;
   });
 
   const Address = () => {
@@ -86,7 +86,9 @@ const Quotation = () => {
   }
 
   const handleSave = (data: FieldValues) => {
-    setQuoteData(data)
+    // setQuoteData(data)
+    console.log(data)
+    console.log(errors)
     // Object.assign(data, { invoiceId: uuidv4() })
     // axios.post('http://localhost:5000/quotation', data)
   }
@@ -110,9 +112,11 @@ const Quotation = () => {
                   control={control}
                   name='dateIssued'
                   defaultValue={new Date()}
+                  rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
                     <DatePicker
                       closeOnScroll
+                      isClearable
                       onChange={onChange}
                       value={value}
                       selected={value}
@@ -127,6 +131,7 @@ const Quotation = () => {
                   render={({ field: { onChange, value } }) => (
                     <DatePicker
                       closeOnScroll
+                      isClearable
                       onChange={onChange}
                       value={value}
                       selected={value}
@@ -141,7 +146,7 @@ const Quotation = () => {
                     render={
                       ({ field: { onChange, onBlur, value } }) => (
                         <Select
-                          onChange={(e) => { onChange(e); setSelectValue(value) }}
+                          onChange={(e) => { onChange(e) }}
                           onBlur={onBlur}
                           value={value}
                           options={invoiceToOptions}
@@ -225,7 +230,7 @@ const Quotation = () => {
 
           <DialogContent>
             <DialogContentText>
-              QuoteData
+              hfaeueaea fegbab bsdz
             </DialogContentText>
           </DialogContent>
 
