@@ -1,55 +1,27 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import './Users.css'
 import 'react-select-search/style.css'
 import AddUser from './AddUser'
 import EditUser from './EditUser'
-
+import UserGrid from './UserGrid'
 
 import Tooltip from '@mui/material/Tooltip'
-import IconButton from '@mui/material/IconButton'
-import DeleteIcon from '@mui/icons-material/Delete'
-import EditIcon from '@mui/icons-material/Edit'
-import VisibilityIcon from '@mui/icons-material/Visibility'
 import { employeesType } from './types'
 import AddIcon from '@mui/icons-material/Add'
 import Fab from '@mui/material/Fab';
-
-
-import { 
-    DataGrid,
-    GridColDef,
-    GridToolbarContainer,
-    GridToolbarColumnsButton,
-    GridToolbarFilterButton,
-    GridToolbarExport,
-    GridToolbarDensitySelector, } from '@mui/x-data-grid'
 import { Box } from '@mui/material'
-
-import { alpha, styled } from '@mui/material/styles'
-
-function CustomToolbar() {
-    return (
-      <GridToolbarContainer sx={{padding: '0.5rem 1rem', gap: '1rem', ["& .MuiButton-root"]: { padding: '0.4rem 0.8rem' }}}>
-        <GridToolbarColumnsButton />
-        <GridToolbarFilterButton />
-        <GridToolbarDensitySelector />
-        <GridToolbarExport />
-      </GridToolbarContainer>
-    );
-  }
 
 function Users() {
     const [users, setUsers] = useState<employeesType[]>([])
-    const BASE_URL = 'http://localhost:5000/employees/'
-
     const [rowId, updateRowId] = useState<number | null>()
     const addUserModal = useRef<HTMLDialogElement>(null)
     const editUserModal = useRef<HTMLDialogElement>(null)
     const [pageSize, setPageSize] = useState<number>(10)
-
+    const [loading, setLoading] = useState(false)
+    
+    const BASE_URL = 'http://localhost:5000/employees/'
     const getUsers = async () => {
         await axios.get(BASE_URL)
             .then(function (res) {
@@ -106,79 +78,6 @@ function Users() {
        getUsers()
     }, [])
 
-    const ODD_OPACITY = 0.2;
-
-const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
-  ["& .MuiDataGrid-row:nth-of-type(even)"]: {
-    backgroundColor: theme.palette.grey[200],
-    '&:hover, &.Mui-hovered': {
-      backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
-      '@media (hover: none)': {
-        backgroundColor: 'transparent',
-      },
-    },
-    '&.Mui-selected': {
-      backgroundColor: alpha(
-        theme.palette.primary.main,
-        ODD_OPACITY + theme.palette.action.selectedOpacity,
-      ),
-      '&:hover, &.Mui-hovered': {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          ODD_OPACITY +
-            theme.palette.action.selectedOpacity +
-            theme.palette.action.hoverOpacity,
-        ),
-        // Reset on touch devices, it doesn't add specificity
-        '@media (hover: none)': {
-          backgroundColor: alpha(
-            theme.palette.primary.main,
-            ODD_OPACITY + theme.palette.action.selectedOpacity,
-          ),
-        },
-      },
-    },
-  },
-}));
-
-    const colDef: GridColDef[] = [
-        {
-            field: 'id', headerName: 'No.', maxWidth: 40, renderCell: (params) => {
-                return (<><span>{params.row.id}</span></>)
-            }
-        },
-        { field: 'name', headerName: 'Name', flex: 1, editable:true },
-        { field: 'username', headerName: 'Username', flex: 0.5 },
-        { field: 'email', headerName: 'Email', flex: 1 },
-        { field: 'phone', headerName: 'Phone', flex: 0.5 },
-        { field: 'website', headerName: 'Website', flex: 0.5 },
-        {
-            field: 'action', headerName: 'Action', flex: 1, renderCell: (params) => {
-                return (
-                    <div className='action'>
-                        <Tooltip arrow title='View Employee'>
-                            <Link to={`/users/${params.row.id}`}>
-                                <IconButton color='secondary'>
-                                    <VisibilityIcon />
-                                </IconButton>
-                            </Link>
-                        </Tooltip>
-                        <Tooltip arrow title='Edit Employee'>
-                            <IconButton color='primary' onClick={() => { updateRowId(params.row.id); openEditUserModal() }}>
-                                <EditIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip arrow title='Delete Employee'>
-                            <IconButton color='error' onClick={() => { deleteUser(params.row.id) }}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </div>
-                )
-            }
-        }
-    ]
-
     return (
         <Box p='24px' >
             <div className='users-heading'>
@@ -191,21 +90,8 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
                     </Tooltip>
                 </span>
             </div>
-            <StripedDataGrid
-                rows={users}
-                columns={colDef}
-                autoHeight
-                pageSize={pageSize}
-                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                rowsPerPageOptions={[10, 20, 50, 100]}
-                getRowSpacing={(params) => ({
-                    top: params.isFirstVisible ? 0 : 5,
-                    bottom: params.isLastVisible ? 0 : 5
-                })}
-                components={{
-                    Toolbar: CustomToolbar
-                }}
-            />
+           
+           <UserGrid users={users} updateRowId={updateRowId} openEditUserModal={openEditUserModal} deleteUser={deleteUser} />
 
             <dialog id='add-user-modal' ref={addUserModal}>
                 <AddUser close={closeAddUserModal} />
